@@ -9,10 +9,9 @@ describe("paypal button click", () => {
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 
-        await browser.waitUntil(async () => {
-            const title = await browser.getTitle();
-            return Boolean(title.length);
-        });
+        // wait for the login form to show up
+        const loginForm = await $('form');
+        await loginForm.waitForDisplayed();
 
         expect(await browser.getTitle()).to.contain(
             "Log in to your PayPal account"

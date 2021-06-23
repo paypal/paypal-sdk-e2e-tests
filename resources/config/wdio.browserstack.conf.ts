@@ -21,8 +21,8 @@ const overrides = {
             parseArgs(process.argv.slice(2))["bstack-session-name"] ||
             "default_name",
         build: process.env.BROWSERSTACK_BUILD_NAME
-            ? process.env.BROWSERSTACK_BUILD_NAME?.substring(0, 255)
-            : "webdriver-io-boilerplate" + " - " + epochTime,
+            ? process.env.BROWSERSTACK_BUILD_NAME.substring(0, 255)
+            : `paypal-sdk-e2e-tests-${epochTime}`,
         acceptInsecureCerts: true,
     },
     capabilities: [

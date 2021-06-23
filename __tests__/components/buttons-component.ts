@@ -25,6 +25,7 @@ export class ButtonsComponent {
 
         // wait for second render to complete
         await $('script[src^="https://www.paypal.com/sdk/js"][data-uid]');
+        await this.getSDKVersion();
 
         await button.click();
     }
@@ -36,5 +37,15 @@ export class ButtonsComponent {
         if (windows.length === 2) {
             await browser.switchToWindow(windows[1]);
         }
+    }
+
+    async getSDKVersion(): Promise<string> {
+        return await browser.execute((windowNamespace) => {
+            const paypalNamespace = (window as any)[windowNamespace];
+
+            if (paypalNamespace) {
+                return paypalNamespace.version;
+            }
+        }, "paypal");
     }
 }
