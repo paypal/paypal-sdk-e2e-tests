@@ -10,7 +10,7 @@ describe("paylater button click", () => {
         await paypalButtonComponent.switchToPopupFrame();
 
         // wait for the login form to show up
-        const loginForm = await $('form');
+        const loginForm = await $("form");
         await loginForm.waitForDisplayed();
 
         expect(await browser.getTitle()).to.contain(

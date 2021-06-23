@@ -6,8 +6,8 @@ This library uses WebDriver.io and BrowserStack to run end-to-end tests against 
 
 ## Quick Start
 
-1. install dependencies `npm install`
-2. run tests `npm test`
+1. `npm install`
+2. `npm test`
 
 ## Features
 
