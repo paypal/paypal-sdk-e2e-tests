@@ -21,7 +21,7 @@ There are two different ways to run the test suite:
 By default, these commands run all the tests in the test suite. To run a single test, pass the test name as an argument like so:
 
 ```bash
-npm test -- paylater-button-click.test.ts
+npm test -- --spec paylater-button-click.test.ts
 ```
 
 ### Running against a custom URL
