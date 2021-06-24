@@ -9,7 +9,7 @@ const overrides = {
     key: process.env.BROWSERSTACK_ACCESS_KEY || "BROWSERSTACK_ACCESS_KEY",
     specs: ["__tests__/**/*.test.ts"],
     host: "hub.browserstack.com",
-    maxInstances: 25,
+    maxInstances: 15,
     baseUrl: "https://developer.paypal.com",
     commonCapabilities: {
         "browserstack.maskCommands":
@@ -30,13 +30,7 @@ const overrides = {
             os: "Windows",
             os_version: "10",
             browserName: "Chrome",
-            browser_version: "latest",
-        },
-        {
-            os: "OS X",
-            os_version: "Catalina",
-            browserName: "Firefox",
-            browser_version: "latest",
+            browser_version: "90",
         },
         {
             os: "OS X",
@@ -47,12 +41,6 @@ const overrides = {
         {
             os_version: "10.0",
             device: "Samsung Galaxy S20",
-            real_mobile: "true",
-            browserName: "Android",
-        },
-        {
-            os_version: "11.0",
-            device: "Google Pixel 4",
             real_mobile: "true",
             browserName: "Android",
         },
