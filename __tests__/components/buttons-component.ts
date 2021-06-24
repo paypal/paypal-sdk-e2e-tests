@@ -11,16 +11,10 @@ export class ButtonsComponent {
         this.fundingSource = fundingSource;
     }
 
-    /**
-     * Clicks on the PayPal Button
-     */
     async click(): Promise<void> {
-        const frame = await $(".paypal-buttons iframe[title='PayPal']");
-        await frame.waitForDisplayed();
-        await browser.switchToFrame(frame);
+        await this.switchToButtonsFrame();
 
         const button = await $(`[data-funding-source="${this.fundingSource}"]`);
-
         await button.waitForDisplayed();
 
         // wait for second render to complete
@@ -29,9 +23,20 @@ export class ButtonsComponent {
 
         await button.click();
     }
-    /**
-     * Switches context to the popup iframe
-     */
+
+    async switchToButtonsFrame(): Promise<void> {
+        const frameBody = await $("body[data-client-version]");
+
+        // already in the iframe so there's no need to switch
+        if (await frameBody.isDisplayed()) {
+            return;
+        }
+
+        const frame = await $(".paypal-buttons iframe[title='PayPal']");
+        await frame.waitForDisplayed();
+        await browser.switchToFrame(frame);
+    }
+
     async switchToPopupFrame(): Promise<void> {
         const windows: string[] = await browser.getWindowHandles();
         if (windows.length === 2) {
@@ -47,5 +52,13 @@ export class ButtonsComponent {
                 return paypalNamespace.version;
             }
         }, "paypal");
+    }
+
+    async getText(): Promise<string> {
+        await this.switchToButtonsFrame();
+        const buttonTextElement = await $(
+            `[data-funding-source="${this.fundingSource}"] .paypal-button-text`
+        );
+        return buttonTextElement.getText();
     }
 }

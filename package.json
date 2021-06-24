@@ -9,6 +9,7 @@
         "format": "prettier --write --ignore-unknown .",
         "test": "wdio resources/config/wdio.local-runner.conf.ts",
         "test-browserstack": "wdio resources/config/wdio.browserstack.conf.ts",
+        "test-browserstack-german": "wdio resources/config/wdio.browserstack.german.conf.ts",
         "generateMochawesome": "marge mocha-report/wdio-ma-merged.json --reportTitle 'WebdriverIO Boilerplate Results'"
     },
     "license": "Apache-2.0",
