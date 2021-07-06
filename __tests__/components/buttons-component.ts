@@ -16,11 +16,7 @@ export class ButtonsComponent {
 
         const button = await $(`[data-funding-source="${this.fundingSource}"]`);
         await button.waitForDisplayed();
-
-        // wait for second render to complete
-        await $('script[src^="https://www.paypal.com/sdk/js"][data-uid]');
-        await this.getSDKVersion();
-
+        await button.waitForClickable();
         await button.click();
     }
 
@@ -32,7 +28,8 @@ export class ButtonsComponent {
             return;
         }
 
-        const frame = await $(".paypal-buttons iframe[title='PayPal']");
+        // wait for second render to complete
+        const frame = await $("iframe[class='component-frame visible']");
         await frame.waitForDisplayed();
         await browser.switchToFrame(frame);
     }
