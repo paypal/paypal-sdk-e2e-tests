@@ -16,6 +16,16 @@ There are two different ways to run the test suite:
 1. using Chrome with the local runner: `npm test`
 2. using BrowserStack: `npm run test-browserstack`
 
+### BrowserStack Username and Access Key
+
+BrowserStack requires a username and access key to use to run tests. Find your credentials using the BrowserStack.com and then run the following command:
+
+```
+npm run save-credentials
+```
+
+This will save your credentials to a local .env file which is ignored by git. This .env file gets loaded by the app and will use the credentials in it to connect to BrowserStack. This is designed for local development. CI tools like GitHub Actions should directly set the BROWSERSTACK_USERNAME and BROWSERSTACK_ACCESS_KEY environment variables.
+
 ### Running a single test
 
 By default, these commands run all the tests in the test suite. To run a single test, pass the test name as an argument like so:

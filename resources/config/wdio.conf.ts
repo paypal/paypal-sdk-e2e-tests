@@ -2,6 +2,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as mergeResults from "wdio-mochawesome-reporter/mergeResults";
+import * as dotenv from "dotenv";
+
+// load environment variables from .env file for local development
+dotenv.config();
 
 export const config = {
     runner: "local",

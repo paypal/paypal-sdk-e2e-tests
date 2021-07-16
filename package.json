@@ -10,7 +10,8 @@
         "test": "wdio resources/config/wdio.local-runner.conf.ts",
         "test-browserstack": "wdio resources/config/wdio.browserstack.conf.ts",
         "test-browserstack-german": "wdio resources/config/wdio.browserstack.german.conf.ts",
-        "generateMochawesome": "marge mocha-report/wdio-ma-merged.json --reportTitle 'PayPal SDK Tests'"
+        "generateMochawesome": "marge mocha-report/wdio-ma-merged.json --reportTitle 'PayPal SDK Tests'",
+        "save-credentials": "ts-node resources/utils/save-credentials.ts"
     },
     "license": "Apache-2.0",
     "dependencies": {
@@ -19,6 +20,7 @@
         "@wdio/mocha-framework": "^7.6.0",
         "browserstack-local": "^1.4.8",
         "chai": "^4.3.4",
+        "dotenv": "^10.0.0",
         "minimist": "^1.2.5",
         "mochawesome-report-generator": "^3.1.5",
         "webdriverio": "^7.6.1"
