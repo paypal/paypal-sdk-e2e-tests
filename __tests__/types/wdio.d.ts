@@ -1,5 +1,8 @@
 declare namespace WebdriverIO {
+    interface Element {
+        waitAndClick: () => Promise<void>;
+    }
     interface Browser {
-        useCustomURL: () => Promise<void>;
+        testUrl: () => Promise<string>;
     }
 }

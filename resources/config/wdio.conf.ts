@@ -60,11 +60,22 @@ export const config = {
         }
     },
     before: function (): void {
-        browser.addCommand("useCustomURL", async function (): Promise<void> {
+        browser.addCommand("testUrl", function (): Promise<string> {
             const defaultURL =
                 "https://developer.paypal.com/demo/checkout/#/pattern/client";
-            await this.url(process.env.TEST_URL || defaultURL);
+            return this.url(process.env.TEST_URL || defaultURL);
         });
+
+        browser.addCommand(
+            "waitAndClick",
+            async function (): Promise<void> {
+                await this.waitForDisplayed();
+                await this.waitForClickable();
+                await browser.pause(2000);
+                await this.click();
+            },
+            true
+        );
     },
     onComplete: function (): void {
         mergeResults("./mocha-report", "results-*");

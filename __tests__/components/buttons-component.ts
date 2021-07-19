@@ -1,23 +1,28 @@
-export type FUNDING_SOURCE = "paypal" | "paylater" | "card";
+import { FUNDING } from "@paypal/sdk-constants";
 
-/**
- * Class for the window.paypal.Buttons() JS SDK component
- *
- */
 export class ButtonsComponent {
-    fundingSource: FUNDING_SOURCE;
+    fundingSource: string;
 
-    constructor(fundingSource: FUNDING_SOURCE) {
+    constructor(fundingSource: string) {
+        const validFundingSources = Object.values(FUNDING);
+
+        if (!validFundingSources.includes(fundingSource)) {
+            throw new Error(
+                `Invalid funding source "${fundingSource}". Valid funding sources: ${JSON.stringify(
+                    validFundingSources
+                )}`
+            );
+        }
+
         this.fundingSource = fundingSource;
     }
 
     async click(): Promise<void> {
         await this.switchToButtonsFrame();
 
+        // select a button by funding source
         const button = await $(`[data-funding-source="${this.fundingSource}"]`);
-        await button.waitForDisplayed();
-        await button.waitForClickable();
-        await button.click();
+        await button.waitAndClick();
     }
 
     async switchToButtonsFrame(): Promise<void> {
@@ -35,10 +40,22 @@ export class ButtonsComponent {
     }
 
     async switchToPopupFrame(): Promise<void> {
-        const windows: string[] = await browser.getWindowHandles();
-        if (windows.length === 2) {
-            await browser.switchToWindow(windows[1]);
+        let windows;
+        await browser.waitUntil(
+            async () => {
+                windows = await browser.getWindowHandles();
+                return windows.length >= 2;
+            },
+            {
+                timeoutMsg: "Expired time waiting checkout window",
+            }
+        );
+
+        if (!windows) {
+            throw new Error("Failed to switch to the popup iframe");
         }
+
+        await browser.switchToWindow(windows[1]);
     }
 
     async getSDKVersion(): Promise<string> {

@@ -15,6 +15,7 @@
     },
     "license": "Apache-2.0",
     "dependencies": {
+        "@paypal/sdk-constants": "^1.0.107",
         "@wdio/cli": "^7.6.1",
         "@wdio/local-runner": "^7.6.1",
         "@wdio/mocha-framework": "^7.6.0",

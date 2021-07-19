@@ -1,11 +1,13 @@
 import { expect } from "chai";
+import { FUNDING } from "@paypal/sdk-constants";
+
 import { ButtonsComponent } from "../components/buttons-component";
 
 describe("paylater button click", () => {
     it("clicking on the paylater button should launch the popup", async () => {
-        await browser.useCustomURL();
+        await browser.testUrl();
 
-        const paypalButtonComponent = new ButtonsComponent("paylater");
+        const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYLATER);
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 
