@@ -11,12 +11,20 @@ describe("paypal button click", () => {
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 
-        // wait for the login form to show up
-        const loginForm = await $("form");
-        await loginForm.waitForDisplayed();
+        const expectedPaths = ["/checkoutnow", "/webapps/hermes"];
 
-        expect(await browser.getTitle()).to.contain(
-            "Log in to your PayPal account"
-        );
+        let url = await browser.getUrl();
+
+        await browser.waitUntil(async () => {
+            url = await browser.getUrl();
+            const { pathname } = new URL(url);
+
+            return expectedPaths.some((supportedPath) => {
+                return pathname.startsWith(supportedPath);
+            });
+        });
+
+        const { pathname } = new URL(url);
+        expect(expectedPaths).to.include(pathname);
     });
 });
