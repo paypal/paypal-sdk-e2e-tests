@@ -2,7 +2,7 @@
 
 > Automation tests for the PayPal JS SDK
 
-![BrowserStack Tests](https://github.com/paypal/paypal-sdk-e2e-tests/actions/workflows/main.yml/badge.svg)
+[![BrowserStack Tests](https://github.com/Nklya/test-actions/workflows/test/badge.svg)](https://github.com/paypal/paypal-sdk-e2e-tests/actions/workflows/main.yml)
 
 This library uses WebDriver.io and BrowserStack to run end-to-end tests against websites using the JS SDK.
 
