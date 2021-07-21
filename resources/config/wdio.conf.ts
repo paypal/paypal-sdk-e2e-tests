@@ -62,7 +62,7 @@ export const config = {
     before: function (): void {
         browser.addCommand("testUrl", function (): Promise<string> {
             const defaultURL =
-                "https://developer.paypal.com/demo/checkout/#/pattern/client";
+                "https://paypal.github.io/paypal-sdk-e2e-tests/index.html";
             return this.url(process.env.TEST_URL || defaultURL);
         });
 
