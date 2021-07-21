@@ -8,7 +8,7 @@ on:
             website:
                 description: Optional TEST_URL
                 required: false
-                default: ""
+                default: "https://paypal.github.io/paypal-sdk-e2e-tests/index.html"
     # run on push but only for the main branch
     push:
         branches: [main]
