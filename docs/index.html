@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="style.css" />
+        <title>PayPal JS SDK Test Page</title>
+    </head>
+    <body>
+        <h1>PayPal JS SDK Test Page</h1>
+        <table class="table" style="max-width: 500px">
+            <tbody>
+                <tr>
+                    <th width="50%">SDK Version</th>
+                    <td data-testid="sdk-version"></td>
+                </tr>
+                <tr>
+                    <th>Order ID:</th>
+                    <td data-testid="order-id"></td>
+                </tr>
+                <tr>
+                    <th>On Approve Message:</th>
+                    <td data-testid="order-approve-message"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="buttons-container"></div>
+
+        <script src="https://unpkg.com/@paypal/paypal-js@4.0.6/dist/iife/paypal-js.legacy.min.js"></script>
+        <script>
+            var options = {
+                "client-id": "test",
+                "data-order-id": "12345",
+            };
+
+            function setInnerHTML(selector, value) {
+                var element = document.querySelector(selector);
+                if (!element) {
+                    return;
+                }
+
+                element.innerHTML = value;
+            }
+
+            function createOrderCallback(data, actions) {
+                return actions.order
+                    .create({
+                        purchase_units: [
+                            {
+                                amount: {
+                                    value: 2.0,
+                                },
+                            },
+                        ],
+                    })
+                    .then((orderID) => {
+                        setInnerHTML("[data-testid='order-id']", orderID);
+                        setInnerHTML(
+                            "[data-testid='order-approve-message']",
+                            ""
+                        );
+                        return orderID;
+                    });
+            }
+
+            function onApproveCallback(data, actions) {
+                return actions.order.capture().then(function (details) {
+                    setInnerHTML(
+                        "[data-testid='order-approve-message']",
+                        "Transaction completed by " +
+                            details.payer.name.given_name
+                    );
+                });
+            }
+
+            window.paypalLoadScript(options).then(function (paypal) {
+                setInnerHTML("[data-testid='sdk-version']", paypal.version);
+                paypal
+                    .Buttons({
+                        createOrder: createOrderCallback,
+                        onApprove: onApproveCallback,
+                    })
+                    .render("#buttons-container");
+            });
+        </script>
+    </body>
+</html>

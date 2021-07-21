@@ -34,8 +34,13 @@ export class ButtonsComponent {
         }
 
         // wait for second render to complete
-        const frame = await $("iframe[class='component-frame visible']");
+        let frame = await $("iframe[class='component-frame visible']");
         await frame.waitForDisplayed();
+
+        // select a button by funding source
+        frame = await $("iframe[class='component-frame visible']");
+        await frame.waitForDisplayed();
+
         await browser.switchToFrame(frame);
     }
 
