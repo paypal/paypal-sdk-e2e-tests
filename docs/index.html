@@ -130,7 +130,9 @@
                 if (sdkScriptPerformance) {
                     setInnerHTML(
                         "[data-testid='sdk-load-time']",
-                        `${sdkScriptPerformance.duration} milliseconds`
+                        `${Math.round(
+                            sdkScriptPerformance.duration
+                        )} milliseconds`
                     );
                 }
 
