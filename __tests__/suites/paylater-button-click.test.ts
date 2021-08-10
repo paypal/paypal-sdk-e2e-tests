@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { FUNDING } from "@paypal/sdk-constants";
 
 import { ButtonsComponent } from "../components/buttons-component";
+import { isLoginFormReady } from "../components/unified-login-component";
 
 describe("paylater button click", () => {
     it("clicking on the paylater button should launch the popup", async () => {
@@ -11,12 +12,11 @@ describe("paylater button click", () => {
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 
-        // wait for the login form to show up
-        const loginForm = await $("form");
-        await loginForm.waitForDisplayed();
+        const expectedPaths = ["/checkoutnow", "/webapps/hermes"];
+        await isLoginFormReady(expectedPaths);
 
-        expect(await browser.getTitle()).to.contain(
-            "Log in to your PayPal account"
-        );
+        const url = await browser.getUrl();
+        const { pathname } = new URL(url);
+        expect(expectedPaths).to.include(pathname);
     });
 });

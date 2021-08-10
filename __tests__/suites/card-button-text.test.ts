@@ -4,18 +4,20 @@ import { FUNDING } from "@paypal/sdk-constants";
 import { ButtonsComponent } from "../components/buttons-component";
 
 const buttonTextByLanguage: Record<string, string> = {
-    "en-US": "Debit or Credit Card",
-    "de-DE": "Debit- oder Kreditkarte",
+    en: "Debit or Credit Card",
+    de: "Debit- oder Kreditkarte",
 };
 
+// Returns a 2 char string representing the language, i.e. "en", "de"
 async function getBrowserLanguage(): Promise<string> {
     const language = await browser.execute(() => {
         if (window.navigator.language) {
-            return window.navigator.language;
+            return window.navigator.language.substr(0, 2);
         }
+        return "en";
     });
 
-    return language || "en-US";
+    return language;
 }
 
 describe("card button text", () => {
