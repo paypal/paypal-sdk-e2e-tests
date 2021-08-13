@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { FUNDING } from "@paypal/sdk-constants";
 
 import { ButtonsComponent } from "../components/buttons-component";
+import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("paypal button click", () => {
     it("clicking on the paypal button should launch the popup", async () => {
@@ -11,20 +12,9 @@ describe("paypal button click", () => {
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 
-        const expectedPaths = ["/checkoutnow", "/webapps/hermes"];
+        const unifiedLogin = new UnifiedLoginComponent();
+        const isLoginFormReady = await unifiedLogin.isLoginFormReady();
 
-        let url = await browser.getUrl();
-
-        await browser.waitUntil(async () => {
-            url = await browser.getUrl();
-            const { pathname } = new URL(url);
-
-            return expectedPaths.some((supportedPath) => {
-                return pathname.startsWith(supportedPath);
-            });
-        });
-
-        const { pathname } = new URL(url);
-        expect(expectedPaths).to.include(pathname);
+        expect(isLoginFormReady).to.be.equal(true);
     });
 });

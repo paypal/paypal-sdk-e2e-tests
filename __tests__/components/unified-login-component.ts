@@ -1,29 +1,11 @@
 import { CookieBannerComponent } from "./cookie-banner-component";
 
-export const isLoginFormReady = async (
-    expectedPaths: string[] = ["/signin", "/checkoutnow"]
-) => {
-    let url = await browser.getUrl();
-
-    await browser.waitUntil(async () => {
-        url = await browser.getUrl();
-        const { pathname } = new URL(url);
-
-        return expectedPaths.some((supportedPath) => {
-            return pathname.startsWith(supportedPath);
-        });
-    });
-};
 export class UnifiedLoginComponent {
-    async loginWithEmailAndPassword({
-        email = process.env.BUYER_EMAIL,
-        password = process.env.BUYER_PASSWORD,
-    }: {
-        email?: string;
-        password?: string;
-    } = {}): Promise<void> {
+    async loginWithEmailAndPassword(): Promise<void> {
+        const { BUYER_EMAIL: email, BUYER_PASSWORD: password } = process.env;
+
         if (!email || !password) throw new Error("Email and Password required");
-        await isLoginFormReady();
+        await this.isLoginFormReady();
 
         // consider the page ready after js is loaded
         const javascriptEnabled = await browser.$("html.js");
@@ -66,9 +48,15 @@ export class UnifiedLoginComponent {
         await loginButton.waitAndClick();
     }
 
-    async isLoggedIn(
-        expectedPaths: string[] = ["/checkoutweb", "/webapps/hermes"]
-    ): Promise<boolean> {
+    isLoginFormReady(): Promise<boolean> {
+        return this.isExpectedPath(["/signin", "/checkoutnow"]);
+    }
+
+    isLoggedIn(): Promise<boolean> {
+        return this.isExpectedPath(["/checkoutweb", "/webapps/hermes"]);
+    }
+
+    async isExpectedPath(expectedPaths: string[]): Promise<boolean> {
         async function isExpectedPath(): Promise<boolean> {
             const url = await browser.getUrl();
             const { pathname } = new URL(url);
@@ -81,9 +69,6 @@ export class UnifiedLoginComponent {
         await browser.waitUntil(async () => {
             return await isExpectedPath();
         });
-
-        const cookieBanner = new CookieBannerComponent();
-        await cookieBanner.attemptToClose();
 
         return await isExpectedPath();
     }

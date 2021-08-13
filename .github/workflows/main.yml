@@ -40,8 +40,8 @@ jobs:
               id: test
               continue-on-error: true
               run: |
-                  BUYER_EMAIL=sb-rpbhv2414295@personal.example.com BUYER_PASSWORD=J!pa5J{o TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack
-                  BUYER_EMAIL=sb-rpbhv2414295@personal.example.com BUYER_PASSWORD=J!pa5J{o TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack-german -- --spec card-button-text
+                  BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack
+                  BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack-german -- --spec card-button-text
             - run: npm run generateMochawesome
             - name: Archive mochawesome reports
               uses: actions/upload-artifact@v2

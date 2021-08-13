@@ -70,8 +70,7 @@ export const config = {
             "waitAndClick",
             async function (): Promise<void> {
                 await this.waitForDisplayed();
-                await this.waitForClickable();
-                await browser.pause(2000);
+                await browser.pause(3000);
                 await this.click();
             },
             true
