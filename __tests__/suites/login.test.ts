@@ -12,11 +12,9 @@ describe("login", () => {
         expect(await paypalButton.isLoaded()).to.be.equal(true);
 
         await paypalButton.click();
-
         await paypalButton.switchToPopupFrame();
 
         const unifiedLogin = new UnifiedLoginComponent();
-
         await unifiedLogin.loginWithEmailAndPassword();
 
         const isLoggedIn = await unifiedLogin.isLoggedIn();

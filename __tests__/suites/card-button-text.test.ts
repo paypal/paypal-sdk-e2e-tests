@@ -24,9 +24,10 @@ describe("card button text", () => {
     it(`should be based on the set browser language`, async () => {
         await browser.testUrl();
 
+        const paypalButtonComponent = new ButtonsComponent(FUNDING.CARD);
+
         const language = await getBrowserLanguage();
         const expectedButtonText = buttonTextByLanguage[language];
-        const paypalButtonComponent = new ButtonsComponent(FUNDING.CARD);
 
         await browser.waitUntil(async () => {
             const text = await paypalButtonComponent.getText();
