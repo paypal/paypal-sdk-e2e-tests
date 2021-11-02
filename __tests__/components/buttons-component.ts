@@ -92,4 +92,29 @@ export class ButtonsComponent {
 
         return buttonTextElement.getText();
     }
+
+    async closePopup(): Promise<void> {
+        // switch from the popup back to the parent window
+        const windows = await browser.getWindowHandles();
+        await browser.switchToWindow(windows[0]);
+
+        // switch into the overlay iframe
+        const frame = await $("iframe[title='PayPal Checkout Overlay']");
+        await browser.switchToFrame(frame);
+
+        // click the close button
+        const closeButton = await $(".paypal-checkout-close");
+        await closeButton.waitAndClick();
+
+        // wait until the popup window closes
+        await browser.waitUntil(
+            async () => {
+                const windows = await browser.getWindowHandles();
+                return windows.length === 1;
+            },
+            {
+                timeoutMsg: "Expired time waiting for popup to close",
+            }
+        );
+    }
 }
