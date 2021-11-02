@@ -19,5 +19,7 @@ describe("login", () => {
 
         const isLoggedIn = await unifiedLogin.isLoggedIn();
         expect(isLoggedIn).to.be.equal(true);
+
+        await paypalButton.closePopup();
     });
 });

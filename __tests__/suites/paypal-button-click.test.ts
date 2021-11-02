@@ -16,5 +16,7 @@ describe("paypal button click", () => {
         const isLoginFormReady = await unifiedLogin.isLoginFormReady();
 
         expect(isLoginFormReady).to.be.equal(true);
+
+        await paypalButtonComponent.closePopup();
     });
 });
