@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="style.css" />
-        <title>PayPal JS SDK Test Page</title>
+        <title>PayPal JS SDK Buttons Test Page</title>
     </head>
     <body>
-        <h1>PayPal JS SDK Test Page</h1>
+        <h1>PayPal JS SDK Buttons Test Page</h1>
         <table class="table" style="max-width: 500px">
             <tbody>
                 <tr>
@@ -18,79 +18,29 @@
                     <td data-testid="sdk-load-time"></td>
                 </tr>
                 <tr>
-                    <th>Order ID:</th>
+                    <th>Order ID</th>
                     <td data-testid="order-id"></td>
                 </tr>
                 <tr>
-                    <th>On Approve Message:</th>
+                    <th>On Approve Message</th>
                     <td data-testid="order-approve-message"></td>
                 </tr>
             </tbody>
         </table>
 
         <div id="buttons-container"></div>
+        <script type="module">
+            import { loadScript } from "https://unpkg.com/@paypal/paypal-js@4.1.0/dist/esm/paypal-js.js";
+            import {
+                getOptionsFromQueryString,
+                getSDKScriptPerformance,
+                setInnerHTML,
+            } from "../utils.js";
 
-        <script src="https://unpkg.com/@paypal/paypal-js@4.0.6/dist/iife/paypal-js.min.js"></script>
-        <script>
-            const allowedSDKQueryParams = [
-                "components",
-                "debug",
-                "client-id",
-                "merchant-id",
-                "locale",
-                "currency",
-                "intent",
-                "commit",
-                "vault",
-                "buyer-country",
-                "enable-funding",
-                "disable-funding",
-                "disable-card",
-                "integration-date",
-            ];
-
-            function getOptionsFromQueryString() {
-                const searchParams = new URLSearchParams(
-                    window.location.search
-                );
-                const validOptions = {};
-
-                searchParams.forEach((value, key) => {
-                    if (allowedSDKQueryParams.includes(key)) {
-                        validOptions[key] = value;
-                    }
-                });
-
-                return validOptions;
-            }
-
-            function getSDKScriptPerformance() {
-                if (!window.performance) {
-                    return;
-                }
-
-                const scriptPerformance = performance
-                    .getEntriesByType("resource")
-                    .find((item) =>
-                        item.name.includes("https://www.paypal.com/sdk/js?")
-                    );
-
-                return scriptPerformance;
-            }
-
-            var options = {
+            const options = {
                 "client-id": "test",
                 ...getOptionsFromQueryString(),
             };
-
-            function setInnerHTML(selector, value) {
-                var element = document.querySelector(selector);
-                if (!element) {
-                    return;
-                }
-
-                element.innerHTML = value;
-            }
 
             function createOrderCallback(data, actions) {
                 return actions.order
@@ -114,16 +64,15 @@
             }
 
             function onApproveCallback(data, actions) {
-                return actions.order.capture().then(function (details) {
+                return actions.order.capture().then((details) => {
                     setInnerHTML(
                         "[data-testid='order-approve-message']",
-                        "Transaction completed by " +
-                            details.payer.name.given_name
+                        `Transaction completed by ${details.payer.name.given_name}`
                     );
                 });
             }
 
-            window.paypalLoadScript(options).then(function (paypal) {
+            loadScript(options).then((paypal) => {
                 setInnerHTML("[data-testid='sdk-version']", paypal.version);
                 const sdkScriptPerformance = getSDKScriptPerformance();
 

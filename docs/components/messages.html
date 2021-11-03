@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="style.css" />
+        <title>PayPal JS SDK Messages Test Page</title>
+    </head>
+    <body>
+        <h1>PayPal JS SDK Messages Test Page</h1>
+        <table class="table" style="max-width: 500px">
+            <tbody>
+                <tr>
+                    <th width="50%">SDK Version</th>
+                    <td data-testid="sdk-version"></td>
+                </tr>
+                <tr>
+                    <th>SDK Load Time</th>
+                    <td data-testid="sdk-load-time"></td>
+                </tr>
+                <tr>
+                    <th>Order Amount</th>
+                    <td data-testid="order-amount"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="messages-container"></div>
+        <script type="module">
+            import { loadScript } from "https://unpkg.com/@paypal/paypal-js@4.1.0/dist/esm/paypal-js.js";
+            import {
+                getOptionsFromQueryString,
+                getSDKScriptPerformance,
+                setInnerHTML,
+            } from "../utils.js";
+
+            const options = {
+                "client-id": "test",
+                components: "messages",
+                ...getOptionsFromQueryString(),
+            };
+
+            loadScript(options).then((paypal) => {
+                setInnerHTML("[data-testid='sdk-version']", paypal.version);
+                const sdkScriptPerformance = getSDKScriptPerformance();
+
+                if (sdkScriptPerformance) {
+                    setInnerHTML(
+                        "[data-testid='sdk-load-time']",
+                        `${Math.round(
+                            sdkScriptPerformance.duration
+                        )} milliseconds`
+                    );
+                }
+
+                const amount = 500;
+                setInnerHTML("[data-testid='order-amount']", amount);
+
+                paypal
+                    .Messages({
+                        amount: amount,
+                        placement: "product",
+                        style: {
+                            layout: "text",
+                            logo: {
+                                type: "primary",
+                                position: "top",
+                            },
+                        },
+                    })
+                    .render("#messages-container");
+            });
+        </script>
+    </body>
+</html>

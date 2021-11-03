@@ -38,7 +38,7 @@ npm test -- --spec paylater-button-click.test.ts
 
 ### Running against a custom URL
 
-The tests run against the following website by default: https://developer.paypal.com/demo/checkout/#/pattern/client.
+The tests run against the following website by default: https://paypal.github.io/paypal-sdk-e2e-tests/buttons/index.html.
 
 This url can be overriden using the `TEST_URL` environment variable to test the JS SDK on different websites:
 
