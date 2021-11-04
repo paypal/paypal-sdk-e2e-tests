@@ -18,6 +18,14 @@
                     <td data-testid="sdk-load-time"></td>
                 </tr>
                 <tr>
+                    <th>DOM Content Loaded Event</th>
+                    <td data-testid="dom-content-loaded-event"></td>
+                </tr>
+                <tr>
+                    <th>Page Load Event</th>
+                    <td data-testid="page-load-event"></td>
+                </tr>
+                <tr>
                     <th>Order ID</th>
                     <td data-testid="order-id"></td>
                 </tr>
@@ -34,8 +42,29 @@
             import {
                 getOptionsFromQueryString,
                 getSDKScriptPerformance,
+                getPagePerformance,
                 setInnerHTML,
             } from "../utils.js";
+
+            window.addEventListener("load", () => {
+                const pagePerformance = getPagePerformance();
+
+                if (pagePerformance) {
+                    setInnerHTML(
+                        "[data-testid='dom-content-loaded-event']",
+                        `${Math.round(
+                            pagePerformance.domContentLoadedEventEnd
+                        )} milliseconds`
+                    );
+
+                    setInnerHTML(
+                        "[data-testid='page-load-event']",
+                        `${Math.round(
+                            pagePerformance.loadEventStart
+                        )} milliseconds`
+                    );
+                }
+            });
 
             const options = {
                 "client-id": "test",

@@ -52,3 +52,15 @@ export function setInnerHTML(selector, value) {
 
     element.innerHTML = value;
 }
+
+export function getPagePerformance() {
+    if (!window.performance) {
+        return;
+    }
+
+    const performanceTiming = window.performance.getEntriesByType("navigation");
+
+    if (performanceTiming && performanceTiming[0]) {
+        return performanceTiming[0];
+    }
+}
