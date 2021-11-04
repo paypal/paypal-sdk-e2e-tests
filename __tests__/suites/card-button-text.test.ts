@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { FUNDING } from "@paypal/sdk-constants";
 
-import { ButtonsComponent } from "../components/buttons-component";
+import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
 
 const buttonTextByLanguage: Record<string, string> = {
     en: "Debit or Credit Card",
@@ -22,7 +22,7 @@ async function getBrowserLanguage(): Promise<string> {
 
 describe("card button text", () => {
     it(`should be based on the set browser language`, async () => {
-        await browser.testUrl();
+        await browser.testUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.CARD);
 

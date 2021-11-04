@@ -60,11 +60,12 @@ export const config = {
         }
     },
     before: function (): void {
-        browser.addCommand("testUrl", function (): Promise<string> {
-            const defaultURL =
-                "https://paypal.github.io/paypal-sdk-e2e-tests/index.html";
-            return this.url(process.env.TEST_URL || defaultURL);
-        });
+        browser.addCommand(
+            "testUrl",
+            function (defaultUrl: string): Promise<string> {
+                return this.url(process.env.TEST_URL || defaultUrl);
+            }
+        );
 
         browser.addCommand(
             "waitAndClick",

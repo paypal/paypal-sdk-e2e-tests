@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { FUNDING } from "@paypal/sdk-constants";
 
-import { ButtonsComponent } from "../components/buttons-component";
+import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
 import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("paylater button click", () => {
     it("clicking on the paylater button should launch the popup", async () => {
-        await browser.testUrl();
+        await browser.testUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYLATER);
         await paypalButtonComponent.click();
