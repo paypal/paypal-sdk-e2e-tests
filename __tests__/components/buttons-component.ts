@@ -3,6 +3,14 @@ import { FUNDING } from "@paypal/sdk-constants";
 export const DEFAULT_URL =
     "https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons.html";
 
+const SELECTORS = {
+    BUTTON_IFRAME: "iframe[class='component-frame visible']",
+    BUTTON_CONTAINER: "body[data-client-version]",
+    BUTTON_TEXT: ".paypal-button-text",
+    OVERLAY_IFRAME: "iframe[title='PayPal Checkout Overlay']",
+    OVERLAY_CLOSE_BUTTON: ".paypal-checkout-close",
+};
+
 export class ButtonsComponent {
     fundingSource: string;
 
@@ -20,33 +28,34 @@ export class ButtonsComponent {
         this.fundingSource = fundingSource;
     }
 
-    async isLoaded(): Promise<boolean> {
+    async switchToFrame(frameSelector: string): Promise<void> {
+        browser.switchToParentFrame();
+
         // wait for second render to complete
-        let frame = await $("iframe[class='component-frame visible']");
+        let frame = await $(frameSelector);
         await frame.waitForDisplayed();
 
         // reselect the frame to avoid the error "Could not switch frame, unknown id"
-        frame = await $("iframe[class='component-frame visible']");
+        frame = await $(frameSelector);
         await frame.waitForDisplayed();
 
-        return await frame.isDisplayed();
+        if (!(await frame.isDisplayed())) {
+            throw new Error(`Failed to load the iframe "${frameSelector}"`);
+        }
+
+        await browser.switchToFrame(frame);
     }
 
     async switchToButtonsFrame(): Promise<void> {
-        const frameBody = await $("body[data-client-version]");
+        const { BUTTON_IFRAME, BUTTON_CONTAINER } = SELECTORS;
+        const frameBody = await $(BUTTON_CONTAINER);
 
         // first check and see if we are already in the frame
         if (await frameBody.isDisplayed()) {
             return;
         }
 
-        // otherwise assume we are on the merchant page
-        if (!(await this.isLoaded())) {
-            throw new Error("Second render failed for the buttons component");
-        }
-
-        const frame = await $("iframe[class='component-frame visible']");
-        await browser.switchToFrame(frame);
+        this.switchToFrame(BUTTON_IFRAME);
     }
 
     async click(): Promise<void> {
@@ -89,8 +98,9 @@ export class ButtonsComponent {
     async getText(): Promise<string> {
         await this.switchToButtonsFrame();
 
+        const { BUTTON_TEXT } = SELECTORS;
         const buttonTextElement = await $(
-            `[data-funding-source="${this.fundingSource}"] .paypal-button-text`
+            `[data-funding-source="${this.fundingSource}"] ${BUTTON_TEXT}`
         );
 
         return buttonTextElement.getText();
@@ -101,12 +111,14 @@ export class ButtonsComponent {
         const windows = await browser.getWindowHandles();
         await browser.switchToWindow(windows[0]);
 
+        const { OVERLAY_IFRAME, OVERLAY_CLOSE_BUTTON } = SELECTORS;
+
         // switch into the overlay iframe
-        const frame = await $("iframe[title='PayPal Checkout Overlay']");
+        const frame = await $(OVERLAY_IFRAME);
         await browser.switchToFrame(frame);
 
         // click the close button
-        const closeButton = await $(".paypal-checkout-close");
+        const closeButton = await $(OVERLAY_CLOSE_BUTTON);
         await closeButton.waitAndClick();
 
         // wait until the popup window closes
