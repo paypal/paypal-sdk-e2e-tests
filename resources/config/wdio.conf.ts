@@ -9,7 +9,7 @@ dotenv.config();
 
 export const config = {
     runner: "local",
-    specs: ["__tests__/**/*.test.ts"],
+    specs: ["tests/**/*.test.ts"],
     capabilities: [
         {
             maxInstances: 1,

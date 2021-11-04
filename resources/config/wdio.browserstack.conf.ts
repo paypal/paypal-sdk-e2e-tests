@@ -7,7 +7,7 @@ const epochTime = new Date().getTime();
 const overrides = {
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
-    specs: ["__tests__/**/*.test.ts"],
+    specs: ["tests/**/*.test.ts"],
     host: "hub.browserstack.com",
     maxInstances: 15,
     baseUrl: "https://developer.paypal.com",
