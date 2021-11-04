@@ -1,7 +1,7 @@
 import { FUNDING } from "@paypal/sdk-constants";
 
 export const DEFAULT_URL =
-    "https://paypal.github.io/paypal-sdk-e2e-tests/buttons.html";
+    "https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons.html";
 
 export class ButtonsComponent {
     fundingSource: string;
