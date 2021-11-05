@@ -2,65 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="style.css" />
         <title>PayPal JS SDK Messages Test Page</title>
     </head>
     <body>
         <h1>PayPal JS SDK Messages Test Page</h1>
-        <table class="table" style="max-width: 500px">
-            <tbody>
-                <tr>
-                    <th width="50%">SDK Version</th>
-                    <td data-testid="sdk-version"></td>
-                </tr>
-                <tr>
-                    <th>SDK Load Time</th>
-                    <td data-testid="sdk-load-time"></td>
-                </tr>
-                <tr>
-                    <th>DOM Content Loaded Event</th>
-                    <td data-testid="dom-content-loaded-event"></td>
-                </tr>
-                <tr>
-                    <th>Page Load Event</th>
-                    <td data-testid="page-load-event"></td>
-                </tr>
-                <tr>
-                    <th>Order Amount</th>
-                    <td data-testid="order-amount"></td>
-                </tr>
-            </tbody>
-        </table>
+        <performance-table></performance-table>
 
         <div id="messages-container"></div>
+
         <script type="module">
             import { loadScript } from "https://unpkg.com/@paypal/paypal-js@4.1.0/dist/esm/paypal-js.js";
-            import {
-                getOptionsFromQueryString,
-                getSDKScriptPerformance,
-                setInnerHTML,
-                getPagePerformance,
-            } from "../utils.js";
-
-            window.addEventListener("load", () => {
-                const pagePerformance = getPagePerformance();
-
-                if (pagePerformance) {
-                    setInnerHTML(
-                        "[data-testid='dom-content-loaded-event']",
-                        `${Math.round(
-                            pagePerformance.domContentLoadedEventEnd
-                        )} milliseconds`
-                    );
-
-                    setInnerHTML(
-                        "[data-testid='page-load-event']",
-                        `${Math.round(
-                            pagePerformance.loadEventStart
-                        )} milliseconds`
-                    );
-                }
-            });
+            import { getOptionsFromQueryString } from "../utils.js";
 
             const options = {
                 "client-id": "test",
@@ -69,24 +21,9 @@
             };
 
             loadScript(options).then((paypal) => {
-                setInnerHTML("[data-testid='sdk-version']", paypal.version);
-                const sdkScriptPerformance = getSDKScriptPerformance();
-
-                if (sdkScriptPerformance) {
-                    setInnerHTML(
-                        "[data-testid='sdk-load-time']",
-                        `${Math.round(
-                            sdkScriptPerformance.duration
-                        )} milliseconds`
-                    );
-                }
-
-                const amount = 500;
-                setInnerHTML("[data-testid='order-amount']", amount);
-
                 paypal
                     .Messages({
-                        amount: amount,
+                        amount: 500,
                         placement: "product",
                         style: {
                             layout: "text",
@@ -99,5 +36,6 @@
                     .render("#messages-container");
             });
         </script>
+        <script src="../performance-table.js"></script>
     </body>
 </html>

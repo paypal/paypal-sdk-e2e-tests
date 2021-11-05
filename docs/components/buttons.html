@@ -2,69 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="style.css" />
         <title>PayPal JS SDK Buttons Test Page</title>
     </head>
     <body>
         <h1>PayPal JS SDK Buttons Test Page</h1>
-        <table class="table" style="max-width: 500px">
-            <tbody>
-                <tr>
-                    <th width="50%">SDK Version</th>
-                    <td data-testid="sdk-version"></td>
-                </tr>
-                <tr>
-                    <th>SDK Load Time</th>
-                    <td data-testid="sdk-load-time"></td>
-                </tr>
-                <tr>
-                    <th>DOM Content Loaded Event</th>
-                    <td data-testid="dom-content-loaded-event"></td>
-                </tr>
-                <tr>
-                    <th>Page Load Event</th>
-                    <td data-testid="page-load-event"></td>
-                </tr>
-                <tr>
-                    <th>Order ID</th>
-                    <td data-testid="order-id"></td>
-                </tr>
-                <tr>
-                    <th>On Approve Message</th>
-                    <td data-testid="order-approve-message"></td>
-                </tr>
-            </tbody>
-        </table>
+        <performance-table></performance-table>
 
         <div id="buttons-container"></div>
+
         <script type="module">
             import { loadScript } from "https://unpkg.com/@paypal/paypal-js@4.1.0/dist/esm/paypal-js.js";
-            import {
-                getOptionsFromQueryString,
-                getSDKScriptPerformance,
-                getPagePerformance,
-                setInnerHTML,
-            } from "../utils.js";
-
-            window.addEventListener("load", () => {
-                const pagePerformance = getPagePerformance();
-
-                if (pagePerformance) {
-                    setInnerHTML(
-                        "[data-testid='dom-content-loaded-event']",
-                        `${Math.round(
-                            pagePerformance.domContentLoadedEventEnd
-                        )} milliseconds`
-                    );
-
-                    setInnerHTML(
-                        "[data-testid='page-load-event']",
-                        `${Math.round(
-                            pagePerformance.loadEventStart
-                        )} milliseconds`
-                    );
-                }
-            });
+            import { getOptionsFromQueryString } from "../utils.js";
 
             const options = {
                 "client-id": "test",
@@ -83,37 +31,18 @@
                         ],
                     })
                     .then((orderID) => {
-                        setInnerHTML("[data-testid='order-id']", orderID);
-                        setInnerHTML(
-                            "[data-testid='order-approve-message']",
-                            ""
-                        );
+                        console.log({ orderID });
                         return orderID;
                     });
             }
 
             function onApproveCallback(data, actions) {
-                return actions.order.capture().then((details) => {
-                    setInnerHTML(
-                        "[data-testid='order-approve-message']",
-                        `Transaction completed by ${details.payer.name.given_name}`
-                    );
+                return actions.order.capture().then((orderDetails) => {
+                    console.log({ orderDetails });
                 });
             }
 
             loadScript(options).then((paypal) => {
-                setInnerHTML("[data-testid='sdk-version']", paypal.version);
-                const sdkScriptPerformance = getSDKScriptPerformance();
-
-                if (sdkScriptPerformance) {
-                    setInnerHTML(
-                        "[data-testid='sdk-load-time']",
-                        `${Math.round(
-                            sdkScriptPerformance.duration
-                        )} milliseconds`
-                    );
-                }
-
                 paypal
                     .Buttons({
                         createOrder: createOrderCallback,
@@ -122,5 +51,6 @@
                     .render("#buttons-container");
             });
         </script>
+        <script src="../performance-table.js"></script>
     </body>
 </html>
