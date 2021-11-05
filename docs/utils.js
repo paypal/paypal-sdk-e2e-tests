@@ -14,6 +14,7 @@ export function getOptionsFromQueryString() {
         "disable-funding",
         "disable-card",
         "integration-date",
+        "data-namespace",
         "sdkBaseURL",
     ];
 
@@ -27,28 +28,4 @@ export function getOptionsFromQueryString() {
     });
 
     return validOptions;
-}
-
-export function getSDKScriptPerformance() {
-    if (!window.performance) {
-        return;
-    }
-
-    const sdkScript = document.querySelector("script[src*='/sdk/js?']");
-    const src = sdkScript ? sdkScript.src : "https://www.paypal.com/sdk/js?";
-
-    const scriptPerformance = performance
-        .getEntriesByType("resource")
-        .find((item) => item.name.includes(src));
-
-    return scriptPerformance;
-}
-
-export function setInnerHTML(selector, value) {
-    var element = document.querySelector(selector);
-    if (!element) {
-        return;
-    }
-
-    element.innerHTML = value;
 }
