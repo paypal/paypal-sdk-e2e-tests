@@ -9,6 +9,7 @@ describe("card button", () => {
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
 
+        // wait for the button text to display to know when second render is complete
         await browser.waitUntil(async () => {
             const text = await cardButtonComponent.getText();
             return Boolean(text);
@@ -19,6 +20,8 @@ describe("card button", () => {
         const cardFieldsFrameSelector =
             "#card-fields-container iframe.zoid-visible";
 
+        // wait for the loading spinner to get replaced by the actual form
+        // the height changes from 300px to over 700px after this change
         await browser.waitUntil(async () => {
             const cardFieldsComponent = await browser.$(
                 cardFieldsFrameSelector
@@ -31,6 +34,7 @@ describe("card button", () => {
 
         await browser.switchToFrame(cardFieldsComponent);
 
+        // verify the card number input displays
         const cardNumberInput = await browser.$('input[name="cardnumber"]');
         const isCardNumberInputDisplayed = await cardNumberInput.isDisplayed();
 
