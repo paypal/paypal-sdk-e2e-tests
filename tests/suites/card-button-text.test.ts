@@ -20,21 +20,21 @@ async function getBrowserLanguage(): Promise<string> {
     return language;
 }
 
-describe("card button text", () => {
-    it(`should be based on the set browser language`, async () => {
+describe("card button", () => {
+    it(`should display button text based on the browser language`, async () => {
         await browser.testUrl(DEFAULT_URL);
 
-        const paypalButtonComponent = new ButtonsComponent(FUNDING.CARD);
+        const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
 
         const language = await getBrowserLanguage();
         const expectedButtonText = buttonTextByLanguage[language];
 
         await browser.waitUntil(async () => {
-            const text = await paypalButtonComponent.getText();
+            const text = await cardButtonComponent.getText();
             return Boolean(text);
         });
 
-        expect(await paypalButtonComponent.getText()).to.equal(
+        expect(await cardButtonComponent.getText()).to.equal(
             expectedButtonText
         );
     });
