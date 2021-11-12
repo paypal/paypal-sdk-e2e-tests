@@ -21,7 +21,7 @@ async function getBrowserLanguage(): Promise<string> {
 }
 
 describe("card button", () => {
-    it(`should display button text based on the browser language`, async () => {
+    it(`should display the card button text based on the browser language`, async () => {
         await browser.testUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);

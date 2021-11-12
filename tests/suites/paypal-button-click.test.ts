@@ -4,8 +4,8 @@ import { FUNDING } from "@paypal/sdk-constants";
 import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
 import { UnifiedLoginComponent } from "../components/unified-login-component";
 
-describe("paypal button click", () => {
-    it("clicking on the paypal button should launch the popup", async () => {
+describe("paypal button", () => {
+    it("should open the popup when clicking on the paypal button", async () => {
         await browser.testUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYPAL);
