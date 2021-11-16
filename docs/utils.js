@@ -16,6 +16,7 @@ export function getOptionsFromQueryString() {
         "integration-date",
         "data-namespace",
         "sdkBaseURL",
+        "cachebust",
     ];
 
     const searchParams = new URLSearchParams(window.location.search);
