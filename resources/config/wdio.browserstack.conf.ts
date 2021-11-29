@@ -1,6 +1,8 @@
-import { config as defaultConfig } from "./wdio.conf";
 import * as _ from "lodash";
 import * as parseArgs from "minimist";
+
+import { getSessionResults } from "../utils/browserstack-session-results";
+import { config as defaultConfig } from "./wdio.conf";
 
 const epochTime = new Date().getTime();
 
@@ -86,6 +88,48 @@ const overrides = {
                     '"}}'
             );
         }
+    },
+
+    onComplete: async function (exitCode: number, config: Record<string, any>) {
+        const {
+            commonCapabilities: { build },
+        } = config;
+
+        const sessionResults = await getSessionResults(build);
+
+        if (!sessionResults) {
+            return;
+        }
+
+        const formattedSessionDetails = sessionResults.map(
+            ({
+                automation_session: {
+                    name,
+                    duration,
+                    os,
+                    os_version,
+                    browser,
+                    browser_version,
+                    status,
+                    public_url,
+                    browser_url,
+                },
+            }) => {
+                return {
+                    name,
+                    duration,
+                    os,
+                    os_version,
+                    browser,
+                    browser_version,
+                    status,
+                    public_url,
+                    browser_url,
+                };
+            }
+        );
+
+        console.log(JSON.stringify(formattedSessionDetails, null, 4));
     },
 };
 
