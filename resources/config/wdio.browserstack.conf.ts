@@ -58,23 +58,35 @@ const overrides = {
         _context: Record<string, unknown>,
         { passed, error }: unknown
     ) {
-        if (parseArgs(process.argv.slice(2))["bstack-session-name"]) {
+        const sessionNameFromArgs = parseArgs(process.argv.slice(2))[
+            "bstack-session-name"
+        ];
+
+        if (sessionNameFromArgs) {
             await browser.executeScript(
-                'browserstack_executor: {"action": "setSessionName", "arguments": {"name":"' +
-                    parseArgs(process.argv.slice(2))["bstack-session-name"] +
-                    '" }}'
+                `browserstack_executor: {
+                    "action": "setSessionName",
+                    "arguments": { "name": "${sessionNameFromArgs}" }
+                }`,
+                []
             );
         } else {
             await browser.executeScript(
-                'browserstack_executor: {"action": "setSessionName", "arguments": {"name":"' +
-                    test.title +
-                    '" }}'
+                `browserstack_executor: {
+                    "action": "setSessionName",
+                    "arguments": { "name": "${test.title}" }
+                }`,
+                []
             );
         }
 
         if (passed) {
             await browser.executeScript(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Assertions passed"}}'
+                `browserstack_executor: {
+                    "action": "setSessionStatus",
+                    "arguments": { "status": "passed", "reason": "Assertions passed" }
+                }`,
+                []
             );
         } else {
             await browser.takeScreenshot();
@@ -82,10 +94,13 @@ const overrides = {
                 "At least 1 assertion failed: " +
                 (error as string).toString().replace(/[^a-zA-Z0-9.]/g, " ")
             ).substring(0, 255);
+
             await browser.executeScript(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "' +
-                    reason +
-                    '"}}'
+                `browserstack_executor: {
+                    "action": "setSessionStatus",
+                    "arguments": { "status": "failed", "reason": "${reason}" }
+                }`,
+                []
             );
         }
     },
