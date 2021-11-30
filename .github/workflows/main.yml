@@ -1,5 +1,4 @@
 name: BrowserStack Tests
-
 on:
     # manually run this action using the GitHub UI
     # https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/
@@ -16,31 +15,34 @@ on:
 jobs:
     test:
         runs-on: macos-latest
-
-        strategy:
-            matrix:
-                node-version: [14]
-
         steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
+            - name: ⬇️ Checkout repo
+              uses: actions/checkout@v2
+
+            - name: ⎔ Setup node
+              uses: actions/setup-node@v2
               with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm install
-            - name: "BrowserStack Env Setup"
+                  node-version: "14"
+                  registry-url: "https://registry.npmjs.org"
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: ⚙️ Setup BrowserStack Env
               uses: "browserstack/github-actions/setup-env@master"
               with:
                   username: ${{ secrets.BROWSERSTACK_USERNAME }}
                   access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-                  build-name: BUILD_INFO
-                  project-name: "REPO_NAME"
-            - name: Run test
+
+            - name: ▶️ Run tests
               id: test
               continue-on-error: true
               run: |
                   BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack
                   BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack-german -- --spec card-button-text
-            - name: Check if tests have failed
+
+            - name: 🤞 Check if tests have passed
               if: steps.test.outcome == 'failure'
               run: exit 1
