@@ -3,6 +3,4 @@ node_modules
 .vscode
 local-*.log
 .tsbuild
-mocha-report
-mochawesome-report
 .env
