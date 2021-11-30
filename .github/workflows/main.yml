@@ -1,17 +1,16 @@
 name: BrowserStack Tests
+# manually run this action using the GitHub UI
+# https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/
 on:
-    # manually run this action using the GitHub UI
-    # https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/
-    workflow_dispatch:
-        inputs:
-            website:
-                description: Optional TEST_URL
-                required: false
+    workflow_dispatch: {}
     # run on push but only for the main branch
     push:
         branches: [main]
     # run for every pull request
     pull_request: {}
+    # run at the end of every day
+    schedule:
+        - cron: "0 0 * * *"
 jobs:
     test:
         runs-on: macos-latest
