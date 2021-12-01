@@ -35,13 +35,16 @@ jobs:
                   username: ${{ secrets.BROWSERSTACK_USERNAME }}
                   access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-            - name: ▶️ Run tests
+            - name: ▶️ Run all tests
               id: test
               continue-on-error: true
-              run: |
-                  BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack
-                  BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack-german -- --spec card-button-text
+              run: BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack
+
+            - name: ▶️ Run IP Geolocation tests for Germany
+              id: test_germany
+              continue-on-error: true
+              run: BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.filter }}" npm run test-browserstack-german -- --spec card-button-text
 
             - name: 🤞 Check if tests have passed
-              if: steps.test.outcome == 'failure'
+              if: steps.test.outcome == 'failure' || steps.test_germany.outcome == 'failure'
               run: exit 1
