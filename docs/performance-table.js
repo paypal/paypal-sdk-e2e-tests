@@ -117,9 +117,15 @@ class PerformanceTable extends HTMLElement {
             ? sdkScript.src
             : "https://www.paypal.com/sdk/js?";
 
-        const { duration } = performance
+        const scriptPerformance = performance
             .getEntriesByType("resource")
             .find((item) => item.name.includes(src));
+
+        if (!scriptPerformance) {
+            return;
+        }
+
+        const { duration } = scriptPerformance;
 
         const sdkScriptLoadElement = this.shadowRoot.querySelector(
             "#sdk-script-load-time"
