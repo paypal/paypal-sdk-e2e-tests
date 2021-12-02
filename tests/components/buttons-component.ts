@@ -1,7 +1,7 @@
 import { FUNDING } from "@paypal/sdk-constants";
 
 export const DEFAULT_URL =
-    "https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons.html";
+    "https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/";
 
 const SELECTORS = {
     BUTTON_IFRAME: "iframe[class='component-frame visible']",
