@@ -1,5 +1,5 @@
 import { loadScript } from "https://unpkg.com/@paypal/paypal-js@4.2.1/dist/esm/paypal-js.js";
-import { getOptionsFromQueryString } from "../../utils.js";
+import { getOptionsFromQueryString, setPerformanceMark } from "../../utils.js";
 
 const sdkScriptDefaultOptions = {
     "client-id": "test",
@@ -12,6 +12,10 @@ const sdkScriptOptions = Object.keys(sdkScriptOptionsFromQueryString).length
     : sdkScriptDefaultOptions;
 
 const buttonOptions = {
+    onError(err) {
+        console.error("buttons onError() callback", err);
+    },
+
     createOrder(data, actions) {
         return actions.order
             .create({
@@ -38,6 +42,9 @@ const buttonOptions = {
 
 loadScript(sdkScriptOptions)
     .then((paypal) => {
+        console.log("successfully loaded the JS SDK script");
+        setPerformanceMark("sdk-script-load");
+
         let buttonsInstance;
 
         try {
@@ -46,9 +53,15 @@ loadScript(sdkScriptOptions)
             console.error("failed to create the buttons component", err);
         }
 
-        buttonsInstance.render("#buttons-container").catch((err) => {
-            console.error("failed to render paypal buttons", err);
-        });
+        buttonsInstance
+            .render("#buttons-container")
+            .then(() => {
+                console.log("successfully rendered the paypal buttons");
+                setPerformanceMark("sdk-buttons-render");
+            })
+            .catch((err) => {
+                console.error("failed to render paypal buttons", err);
+            });
     })
     .catch((err) => {
         console.error("failed to load the JS SDK script", err);

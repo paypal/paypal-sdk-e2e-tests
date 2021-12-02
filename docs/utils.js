@@ -30,3 +30,9 @@ export function getOptionsFromQueryString() {
 
     return validOptions;
 }
+
+export function setPerformanceMark(name) {
+    if (window.performance && performance.mark) {
+        performance.mark(name);
+    }
+}
