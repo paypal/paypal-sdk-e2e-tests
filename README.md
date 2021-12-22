@@ -15,14 +15,14 @@ This library uses WebDriver.io and BrowserStack to run end-to-end tests against 
 
 There are two different ways to run the test suite:
 
-1. using Chrome with the local runner: `npm test`
-2. using BrowserStack: `npm run test-browserstack`
+1. `npm test` - local runner that uses Chrome
+2. `npm run test-browserstack` - uses BrowserStack and requires a username and access key
 
 ### BrowserStack Username and Access Key
 
-BrowserStack requires a username and access key to use to run tests. Find your credentials using the BrowserStack.com and then run the following command:
+BrowserStack requires a username and access key to use to run tests. Find your credentials using [BrowserStack.com](https://www.browserstack.com/) and then run the following command:
 
-```
+```bash
 npm run save-credentials
 ```
 
@@ -43,8 +43,8 @@ The tests run against the following default urls:
 -   buttons: https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/index.html
 -   messages: https://paypal.github.io/paypal-sdk-e2e-tests/components/messages/index.html
 
-This url can be overriden using the `TEST_URL` environment variable to test the JS SDK on different websites:
+This url can be overriden using the `TEST_URL` environment variable to test the JS SDK on different websites. For example, the button tests can be run against the react-paypal-js storybook demo:
 
 ```bash
-TEST_URL="https://paypal.github.io/react-paypal-js/iframe.html?id=example-paypalbuttons--default&args=&viewMode=story" npm test
+TEST_URL="https://paypal.github.io/react-paypal-js/iframe.html?id=example-paypalbuttons--default&args=&viewMode=story" npm test -- --spec button
 ```
