@@ -17,6 +17,8 @@ export function getOptionsFromQueryString() {
         "data-namespace",
         "sdkBaseURL",
         "cachebust",
+        "cdn-registry",
+        "version",
     ];
 
     const searchParams = new URLSearchParams(window.location.search);
