@@ -1,5 +1,5 @@
 export const DEFAULT_URL =
-    "https://paypal.github.io/paypal-sdk-e2e-tests/components/messages/";
+    "https://paypal.github.io/paypal-sdk-e2e-tests/components/messages/messages.html";
 
 const SELECTORS = {
     MESSAGE_IFRAME: "iframe[name^='__zoid__paypal_message__']",

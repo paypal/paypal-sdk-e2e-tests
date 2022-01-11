@@ -40,8 +40,8 @@ npm test -- --spec paylater-button-click.test.ts
 
 The tests run against the following default urls:
 
--   buttons: https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/index.html
--   messages: https://paypal.github.io/paypal-sdk-e2e-tests/components/messages/index.html
+-   buttons: https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html
+-   messages: https://paypal.github.io/paypal-sdk-e2e-tests/components/messages/messages.html
 
 This url can be overriden using the `TEST_URL` environment variable to test the JS SDK on different websites. For example, the button tests can be run against the react-paypal-js storybook demo:
 
