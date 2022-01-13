@@ -42,7 +42,7 @@ window
             return;
         }
 
-        buttonsInstance.render("#buttons-container").catch((err) => {
+        buttonsInstance.render("#buttons-container").catch(function (err) {
             console.error("failed to render paypal buttons", err);
         });
     })
