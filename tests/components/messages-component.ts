@@ -3,7 +3,7 @@ export const DEFAULT_URL =
 
 const SELECTORS = {
     MESSAGE_IFRAME: "iframe[name^='__zoid__paypal_message__']",
-    MESSAGE_CONTAINER: ".message[role='button']",
+    MESSAGE_CONTAINER: ".message",
     MODAL_IFRAME: "iframe[name^='__zoid__paypal_credit_modal__']",
     MODAL_CONTAINER: ".modal-wrapper",
     MODAL_CLOSE_BUTTON: "button.close",
@@ -11,7 +11,7 @@ const SELECTORS = {
 
 export class MessagesComponent {
     async switchToFrame(frameSelector: string): Promise<void> {
-        browser.switchToParentFrame();
+        await browser.switchToParentFrame();
 
         const frame = await $(frameSelector);
         await frame.waitForDisplayed();

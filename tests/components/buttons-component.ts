@@ -29,7 +29,7 @@ export class ButtonsComponent {
     }
 
     async switchToFrame(frameSelector: string): Promise<void> {
-        browser.switchToParentFrame();
+        await browser.switchToParentFrame();
 
         // wait for second render to complete
         let frame = await $(frameSelector);
