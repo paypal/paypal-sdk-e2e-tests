@@ -39,6 +39,7 @@ window
             buttonsInstance = paypal.Buttons();
         } catch (err) {
             console.error("failed to create the buttons component", err);
+            return;
         }
 
         buttonsInstance.render("#buttons-container").catch((err) => {
