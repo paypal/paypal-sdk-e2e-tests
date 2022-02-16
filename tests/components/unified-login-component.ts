@@ -64,6 +64,11 @@ export class UnifiedLoginComponent {
 
         const loginButton = await browser.$(LOGIN_BUTTON);
         await loginButton.waitAndClick();
+
+        // retry clicking the login button if it fails the first time
+        if (await loginButton.isDisplayed()) {
+            await loginButton.waitAndClick();
+        }
     }
 
     isLoginFormReady(): Promise<boolean> {
