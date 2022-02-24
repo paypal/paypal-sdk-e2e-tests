@@ -19,6 +19,7 @@ export function getOptionsFromQueryString() {
         "cachebust",
         "cdn-registry",
         "version",
+        "data-popups-disabled",
     ];
 
     const searchParams = new URLSearchParams(window.location.search);
