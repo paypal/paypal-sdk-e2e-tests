@@ -14,7 +14,15 @@ describe("messages", () => {
 
         await paypalMessagesComponent.switchToModalFrame();
 
-        const pageTitle = await browser.getTitle();
-        expect(pageTitle).to.equal("Buy Now, Pay Later - PayPal");
+        const h1 = await $("h1");
+        const h1Text = await h1.getText();
+
+        const possibleHeadings = [
+            "Buy now, pay later",
+            "Pay in 4 interest-free payments",
+            "Pay over time with PayPal Credit",
+        ];
+
+        expect(possibleHeadings).to.include(h1Text);
     });
 });
