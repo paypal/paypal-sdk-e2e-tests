@@ -36,6 +36,8 @@ const buttonOptions = {
     onApprove(data, actions) {
         return actions.order.capture().then((orderDetails) => {
             console.log({ orderDetails });
+            const outputElement = document.querySelector("#output");
+            outputElement.innerHTML = "<h3>Thank you for your payment!</h3>";
         });
     },
 };
