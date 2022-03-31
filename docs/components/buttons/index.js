@@ -34,11 +34,19 @@ const buttonOptions = {
     },
 
     onApprove(data, actions) {
-        return actions.order.capture().then((orderDetails) => {
-            console.log({ orderDetails });
-            const outputElement = document.querySelector("#output");
-            outputElement.innerHTML = "<h3>Thank you for your payment!</h3>";
-        });
+        const outputElement = document.querySelector("#output");
+
+        return actions.order
+            .capture()
+            .then((orderDetails) => {
+                console.log({ orderDetails });
+                outputElement.innerHTML =
+                    "<h3>Thank you for your payment!</h3>";
+            })
+            .catch((err) => {
+                console.error(err);
+                outputElement.innerHTML = `<h3>The capture failed. \n ${err.toString()}</h3>`;
+            });
     },
 };
 
