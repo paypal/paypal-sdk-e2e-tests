@@ -10,6 +10,7 @@ describe("messages", () => {
         await browser.testUrl(DEFAULT_URL);
 
         const paypalMessagesComponent = new MessagesComponent();
+        await paypalMessagesComponent.unsafeReferer();
         await paypalMessagesComponent.click();
 
         await paypalMessagesComponent.switchToModalFrame();

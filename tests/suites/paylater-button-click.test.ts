@@ -9,6 +9,7 @@ describe("paylater button", () => {
         await browser.testUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYLATER);
+        await paypalButtonComponent.unsafeReferer();
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 

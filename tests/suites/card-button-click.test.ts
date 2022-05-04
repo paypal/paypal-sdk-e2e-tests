@@ -8,6 +8,7 @@ describe("card button", () => {
         await browser.testUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
+        await cardButtonComponent.unsafeReferer();
 
         // wait for the button text to display to know when second render is complete
         await browser.waitUntil(async () => {
