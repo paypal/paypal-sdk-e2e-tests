@@ -66,7 +66,7 @@ export class MessagesComponent {
     }
 
     async unsafeReferer(): Promise<void> {
-        const unsafeReferer = process.env.unsafeReferer;
+        const unsafeReferer = process.env.UNSAFE_REFERER;
         if (unsafeReferer) {
             const title = await browser.getTitle();
             await browser.newWindow(unsafeReferer);
