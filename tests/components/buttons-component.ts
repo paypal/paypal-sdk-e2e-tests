@@ -132,4 +132,17 @@ export class ButtonsComponent {
             }
         );
     }
+
+    async unsafeReferer(): Promise<void> {
+        const unsafeReferer = process.env.unsafeReferer;
+        if (unsafeReferer) {
+            const title = await browser.getTitle();
+            await browser.newWindow(unsafeReferer);
+            const body = await $("body");
+            await body.addValue("thisisunsafe");
+            await browser.closeWindow();
+            await browser.switchWindow(title);
+            await browser.refresh();
+        }
+    }
 }
