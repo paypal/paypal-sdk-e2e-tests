@@ -25,7 +25,6 @@ describe("card button", () => {
         await browser.testUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
-        await cardButtonComponent.unsafeReferer();
 
         const language = await getBrowserLanguage();
         const expectedButtonText = buttonTextByLanguage[language];

@@ -132,19 +132,4 @@ export class ButtonsComponent {
             }
         );
     }
-
-    async unsafeReferer(): Promise<void> {
-        const unsafeReferer = process.env.UNSAFE_REFERER;
-        const isChrome = browser.capabilities.browserName === "Chrome";
-        if (unsafeReferer && isChrome) {
-            await browser.newWindow(unsafeReferer);
-            const body = await $("body");
-            const bodyExists = await body.isExisting();
-            bodyExists
-                ? await body.addValue("thisisunsafe")
-                : console.error("The 'body' element doesn't exist.");
-            await browser.closeWindow();
-            await browser.refresh();
-        }
-    }
 }

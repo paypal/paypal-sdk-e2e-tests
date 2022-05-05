@@ -9,7 +9,6 @@ describe("login", () => {
         await browser.testUrl(DEFAULT_URL);
 
         const paypalButton = new ButtonsComponent(FUNDING.PAYPAL);
-        await paypalButton.unsafeReferer();
 
         await paypalButton.click();
         await paypalButton.switchToPopupFrame();
