@@ -67,7 +67,8 @@ export class MessagesComponent {
 
     async unsafeReferer(): Promise<void> {
         const unsafeReferer = process.env.UNSAFE_REFERER;
-        if (unsafeReferer) {
+        const isChrome = browser.capabilities.browserName === "Chrome";
+        if (unsafeReferer && isChrome) {
             await browser.newWindow(unsafeReferer);
             const body = await $("body");
             const bodyExists = await body.isExisting();
