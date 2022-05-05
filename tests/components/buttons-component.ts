@@ -138,7 +138,10 @@ export class ButtonsComponent {
         if (unsafeReferer) {
             await browser.newWindow(unsafeReferer);
             const body = await $("body");
-            await body.addValue("thisisunsafe");
+            const bodyExists = await body.isExisting();
+            bodyExists
+                ? await body.addValue("thisisunsafe")
+                : console.error("The 'body' element doesn't exist.");
             await browser.closeWindow();
             await browser.refresh();
         }
