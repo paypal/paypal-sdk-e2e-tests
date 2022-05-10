@@ -9,6 +9,14 @@ const epochTime = new Date().getTime();
 const overrides = {
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
+    services: [
+        [
+            "@browserstack/wdio-browserstack-service",
+            {
+                browserstackLocal: true,
+            },
+        ],
+    ],
     specs: ["tests/**/*.test.ts"],
     host: "hub.browserstack.com",
     maxInstances: 15,
