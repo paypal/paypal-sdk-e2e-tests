@@ -22,43 +22,52 @@ const overrides = {
     maxInstances: 15,
     baseUrl: "https://developer.paypal.com",
     commonCapabilities: {
-        "browserstack.maskCommands":
-            "setValues, getValues, setCookies, getCookies",
-        "browserstack.debug": true,
-        "browserstack.video": true,
-        "browserstack.networkLogs": false,
-        name:
+        maskCommands: "setValues, getValues, setCookies, getCookies",
+        debug: true,
+        video: true,
+        networkLogs: false,
+        sessionName:
             parseArgs(process.argv.slice(2))["bstack-session-name"] ||
             "default_name",
-        build: process.env.BROWSERSTACK_BUILD_NAME
+        buildName: process.env.BROWSERSTACK_BUILD_NAME
             ? process.env.BROWSERSTACK_BUILD_NAME.substring(0, 255)
             : `paypal-sdk-e2e-tests-${epochTime}`,
-        acceptInsecureCerts: true,
     },
     capabilities: [
         {
-            os: "Windows",
-            os_version: "10",
+            "bstack:options": {
+                os: "Windows",
+                osVersion: "10",
+            },
             browserName: "Chrome",
-            browser_version: "90",
+            browserVersion: "90",
         },
         {
-            os: "OS X",
-            os_version: "Big Sur",
+            "bstack:options": {
+                os: "OS X",
+                osVersion: "Big Sur",
+            },
             browserName: "Firefox",
-            browser_version: "latest",
+            browserVersion: "latest",
+            acceptInsecureCerts: true,
         },
         {
-            os_version: "10.0",
-            device: "Samsung Galaxy S20",
-            real_mobile: "true",
-            browserName: "Android",
+            "bstack:options": {
+                osVersion: "10.0",
+                deviceName: "Samsung Galaxy S20",
+                realMobile: "true",
+            },
+            browserName: "Chrome",
+            acceptInsecureCerts: true,
         },
         {
-            os_version: "11.0",
-            device: "Google Pixel 5",
-            real_mobile: "true",
-            browserName: "Android",
+            "bstack:options": {
+                osVersion: "11.0",
+                deviceName: "Google Pixel 5",
+                realMobile: "true",
+            },
+            browserName: "Chrome",
+            acceptInsecureCerts: true,
         },
     ],
     afterTest: async function (
@@ -115,10 +124,10 @@ const overrides = {
 
     onComplete: async function (exitCode: number, config: Record<string, any>) {
         const {
-            commonCapabilities: { build },
+            commonCapabilities: { buildName },
         } = config;
 
-        const sessionResults = await getSessionResults(build);
+        const sessionResults = await getSessionResults(buildName);
 
         if (!sessionResults) {
             return;
@@ -158,7 +167,11 @@ const overrides = {
 
 const tmpConfig = _.defaultsDeep(overrides, defaultConfig);
 
-tmpConfig.capabilities.forEach(function (caps: { [x: string]: unknown }) {
+tmpConfig.capabilities.forEach(function ({
+    "bstack:options": caps,
+}: {
+    [x: string]: unknown;
+}) {
     for (const i in tmpConfig.commonCapabilities)
         caps[i] = caps[i] || tmpConfig.commonCapabilities[i];
 });
