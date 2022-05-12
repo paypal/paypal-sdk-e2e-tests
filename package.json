@@ -27,7 +27,6 @@
         "webdriverio": "^7.19.2"
     },
     "devDependencies": {
-        "@browserstack/wdio-browserstack-service": "^1.0.4",
         "@types/chai": "^4.3.0",
         "@types/minimist": "^1.2.2",
         "@types/mocha": "^9.1.0",
