@@ -4,6 +4,7 @@ import * as _ from "lodash";
 const overrides = {
     capabilities: [
         {
+            browserName: "Chrome",
             "goog:chromeOptions": {
                 args: ["--ignore-certificate-errors"],
             },

@@ -6,12 +6,6 @@ dotenv.config();
 export const config = {
     runner: "local",
     specs: ["tests/**/*.test.ts"],
-    capabilities: [
-        {
-            maxInstances: 1,
-            browserName: "Chrome",
-        },
-    ],
     logLevel: "warn",
     coloredLogs: true,
     bail: 0,
