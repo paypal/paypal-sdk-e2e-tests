@@ -5,14 +5,15 @@ dotenv.config();
 
 export const config = {
     runner: "local",
-    specs: ["tests/**/*.test.ts"],
+    specs: ["tests/**/login.test.ts"],
     capabilities: [
         {
             maxInstances: 1,
-            browserName: "chrome",
+            browserName: "safari",
             acceptInsecureCerts: true,
         },
     ],
+    services: ["safaridriver"],
     logLevel: "warn",
     coloredLogs: true,
     bail: 0,
@@ -54,7 +55,9 @@ export const config = {
                         : console.error("The 'body' element doesn't exist.");
                     await this.closeWindow();
                 }
-                return this.url(testUrl);
+                const url = await this.url(testUrl);
+                await driver.fullscreenWindow();
+                return url;
             }
         );
 
