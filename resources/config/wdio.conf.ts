@@ -9,8 +9,7 @@ export const config = {
     capabilities: [
         {
             maxInstances: 1,
-            browserName: "chrome",
-            acceptInsecureCerts: true,
+            browserName: "Chrome",
         },
     ],
     logLevel: "warn",

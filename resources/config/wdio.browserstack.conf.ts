@@ -41,6 +41,7 @@ const overrides = {
             },
             browserName: "Chrome",
             browserVersion: "90",
+            acceptInsecureCerts: true,
         },
         {
             "bstack:options": {
