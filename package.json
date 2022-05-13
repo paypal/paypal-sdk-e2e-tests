@@ -9,6 +9,7 @@
         "format": "prettier --write --ignore-unknown .",
         "docs": "serve docs",
         "test": "wdio resources/config/wdio.local-runner.conf.ts",
+        "test-local-safari": "wdio resources/config/wdio.local-safari.conf.ts",
         "test-browserstack": "wdio resources/config/wdio.browserstack.conf.ts",
         "test-browserstack-german": "wdio resources/config/wdio.browserstack.german.conf.ts",
         "save-credentials": "ts-node resources/utils/save-credentials.ts"
@@ -24,6 +25,7 @@
         "dotenv": "^16.0.0",
         "minimist": "^1.2.6",
         "node-fetch": "^2.6.7",
+        "wdio-safaridriver-service": "^1.0.0",
         "webdriverio": "^7.19.2"
     },
     "devDependencies": {

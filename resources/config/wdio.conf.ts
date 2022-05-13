@@ -54,7 +54,9 @@ export const config = {
                         : console.error("The 'body' element doesn't exist.");
                     await this.closeWindow();
                 }
-                return this.url(testUrl);
+                const url = await this.url(testUrl);
+                await this.fullscreenWindow();
+                return url;
             }
         );
 
@@ -62,8 +64,11 @@ export const config = {
             "waitAndClick",
             async function (): Promise<void> {
                 await this.waitForDisplayed();
+                await this.waitForClickable();
                 await browser.pause(3000);
                 await this.click();
+                // Allow Button click impact to take place.
+                await browser.pause(3000);
             },
             true
         );
