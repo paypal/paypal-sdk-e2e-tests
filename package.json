@@ -11,6 +11,7 @@
         "test": "wdio resources/config/wdio.local-runner.conf.ts",
         "test-local-safari": "wdio resources/config/wdio.local-safari.conf.ts",
         "test-browserstack": "wdio resources/config/wdio.browserstack.conf.ts",
+        "test-browserstack-safari": "wdio resources/config/wdio.browserstack-safari.conf.ts",
         "test-browserstack-german": "wdio resources/config/wdio.browserstack.german.conf.ts",
         "save-credentials": "ts-node resources/utils/save-credentials.ts"
     },
