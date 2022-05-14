@@ -55,7 +55,13 @@ export const config = {
                     await this.closeWindow();
                 }
                 const url = await this.url(testUrl);
-                await this.fullscreenWindow();
+                if (this.capabilities.browserName === "Safari") {
+                    try {
+                        await this.fullscreenWindow();
+                    } catch (err) {
+                        // Ignore error
+                    }
+                }
                 return url;
             }
         );
