@@ -1,5 +1,4 @@
 import { config as defaultConfig } from "./wdio.browserstack.conf";
-import * as _ from "lodash";
 
 const overrides = {
     maxInstances: 1,
