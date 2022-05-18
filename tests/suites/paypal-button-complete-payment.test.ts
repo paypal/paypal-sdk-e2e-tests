@@ -21,14 +21,22 @@ describe("paypal button", () => {
         expect(isLoggedIn).to.be.equal(true);
 
         const SELECTORS = {
-            PAY_NOW_BUTTON: '[data-testid="submit-button-initial"]',
+            PAY_NOW_BUTTON: '[data-testid="submit-button-initial"]', // checkoutlite app
+            FALLBACK_PAY_NOW_BUTTON: "#confirmButtonTop", // hermes app
             ON_APPROVE_SUCCESS_MESSAGE: "#output",
         };
 
         const cookieBanner = new CookieBannerComponent();
         await cookieBanner.attemptToClose();
 
-        const payNowButton = await $(SELECTORS.PAY_NOW_BUTTON);
+        let payNowButton = await $(SELECTORS.PAY_NOW_BUTTON);
+        const isPayNowButtonDisplayed = await payNowButton.isDisplayed();
+
+        if (!isPayNowButtonDisplayed) {
+            // fallback to hermes button selector
+            payNowButton = await $(SELECTORS.FALLBACK_PAY_NOW_BUTTON);
+        }
+
         await payNowButton.waitForDisplayed();
 
         await payNowButton.waitAndClick();
