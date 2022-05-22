@@ -66,8 +66,12 @@ export class UnifiedLoginComponent {
         await loginButton.waitAndClick();
 
         // retry clicking the login button if it fails the first time
-        if (await loginButton.isDisplayed()) {
-            await loginButton.waitAndClick();
+        try {
+            if (await loginButton.isDisplayed()) {
+                await loginButton.waitAndClick();
+            }
+        } catch (err) {
+            // ignore errors in second attempt
         }
     }
 

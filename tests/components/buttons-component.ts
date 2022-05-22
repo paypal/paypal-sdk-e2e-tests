@@ -68,6 +68,7 @@ export class ButtonsComponent {
 
     async switchToPopupFrame(): Promise<void> {
         let windows;
+        await driver.switchToParentFrame();
         await browser.waitUntil(
             async () => {
                 windows = await browser.getWindowHandles();
