@@ -5,15 +5,17 @@ const overrides = {
     // paylater button is not eligible in Germany
     exclude: ["tests/**/*paylater*.test.ts"],
     commonCapabilities: {
-        "browserstack.geoLocation": "DE",
-        locale: "de",
-        language: "de",
+        geoLocation: "DE",
     },
 };
 
 const tmpConfig = _.defaultsDeep(overrides, defaultConfig);
 
-tmpConfig.capabilities.forEach(function (caps: { [x: string]: unknown }) {
+tmpConfig.capabilities.forEach(function ({
+    "bstack:options": caps,
+}: {
+    [x: string]: unknown;
+}) {
     for (const i in tmpConfig.commonCapabilities)
         caps[i] = caps[i] || tmpConfig.commonCapabilities[i];
 });
