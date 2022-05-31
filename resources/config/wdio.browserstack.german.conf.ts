@@ -7,6 +7,22 @@ const overrides = {
     commonCapabilities: {
         geoLocation: "DE",
     },
+    capabilities: [
+        {
+            "goog:chromeOptions": {
+                prefs: {
+                    "intl.accept_languages": "de-DE",
+                },
+            },
+        },
+        {
+            "moz:firefoxOptions": {
+                prefs: {
+                    "intl.accept_languages": "de-DE",
+                },
+            },
+        },
+    ],
 };
 
 const tmpConfig = _.defaultsDeep(overrides, defaultConfig);
