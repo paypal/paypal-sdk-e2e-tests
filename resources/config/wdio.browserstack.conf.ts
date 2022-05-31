@@ -25,7 +25,8 @@ const overrides = {
         maskCommands: "setValues, getValues, setCookies, getCookies",
         debug: true,
         video: true,
-        networkLogs: false,
+        networkLogs: true,
+        consoleLogs: "verbose",
         sessionName:
             parseArgs(process.argv.slice(2))["bstack-session-name"] ||
             "default_name",
@@ -38,8 +39,6 @@ const overrides = {
             "bstack:options": {
                 os: "Windows",
                 osVersion: "10",
-                networkLogs: "true",
-                consoleLogs: "verbose",
             },
             browserName: "Chrome",
             browserVersion: "90",
@@ -49,8 +48,6 @@ const overrides = {
             "bstack:options": {
                 os: "OS X",
                 osVersion: "Big Sur",
-                networkLogs: "true",
-                consoleLogs: "verbose",
             },
             browserName: "Firefox",
             browserVersion: "latest",
@@ -61,8 +58,6 @@ const overrides = {
                 osVersion: "10.0",
                 deviceName: "Samsung Galaxy S20",
                 realMobile: "true",
-                networkLogs: "true",
-                consoleLogs: "verbose",
             },
             browserName: "Chrome",
             acceptInsecureCerts: true,
@@ -72,8 +67,6 @@ const overrides = {
                 osVersion: "11.0",
                 deviceName: "Google Pixel 5",
                 realMobile: "true",
-                networkLogs: "true",
-                consoleLogs: "verbose",
             },
             browserName: "Chrome",
             acceptInsecureCerts: true,
