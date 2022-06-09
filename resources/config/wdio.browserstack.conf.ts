@@ -5,6 +5,7 @@ import { getSessionResults } from "../utils/browserstack-session-results";
 import { config as defaultConfig } from "./wdio.conf";
 
 const epochTime = new Date().getTime();
+const localTesting = process.env.LOCAL_TESTING === "true";
 
 const overrides = {
     user: process.env.BROWSERSTACK_USERNAME,
@@ -13,7 +14,7 @@ const overrides = {
         [
             "@browserstack/wdio-browserstack-service",
             {
-                browserstackLocal: false,
+                browserstackLocal: localTesting,
             },
         ],
     ],
