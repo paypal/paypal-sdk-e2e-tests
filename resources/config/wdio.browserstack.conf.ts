@@ -13,7 +13,7 @@ const overrides = {
         [
             "@browserstack/wdio-browserstack-service",
             {
-                browserstackLocal: true,
+                browserstackLocal: false,
             },
         ],
     ],
