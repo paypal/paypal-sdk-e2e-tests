@@ -48,3 +48,17 @@ This url can be overriden using the `TEST_URL` environment variable to test the 
 ```bash
 TEST_URL="https://paypal.github.io/react-paypal-js/iframe.html?id=example-paypalbuttons--default&args=&viewMode=story" npm test -- --spec button
 ```
+
+### Command line local testing in BrowserStack
+
+BrowserStack local testing can be enabled from the command line by adding `LOCAL_TESTING=true` to `test-browserstack` or `test-browserstack-german`:
+
+```bash
+LOCAL_TESTING=true npm run test-browserstack
+```
+
+This is useful for running tests on `localhost` or in test environments using a custom test page:
+
+```bash
+TEST_URL="https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html?client-id=<stage client-id>&sdkBaseURL=<test env url>" LOCAL_TESTING=true npm run test-browserstack
+```
