@@ -57,8 +57,8 @@ BrowserStack local testing can be enabled from the command line by adding `LOCAL
 LOCAL_TESTING=true npm run test-browserstack
 ```
 
-This is useful for running tests using `localhost` and/or a test page that has a custom JS SDK test environment script:
+This is useful for running tests using `localhost` and/or a test page that uses a custom JS SDK test environment:
 
 ```bash
-TEST_URL="https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html?client-id=<client-id>&sdkBaseURL=<js-sdk-test-url>" LOCAL_TESTING=true npm run test-browserstack
+TEST_URL="https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html?client-id=<client-id>&sdkBaseURL=<js-sdk-test-env-url>" LOCAL_TESTING=true npm run test-browserstack
 ```
