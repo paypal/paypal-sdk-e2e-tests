@@ -49,7 +49,7 @@ This url can be overriden using the `TEST_URL` environment variable to test the 
 TEST_URL="https://paypal.github.io/react-paypal-js/iframe.html?id=example-paypalbuttons--default&args=&viewMode=story" npm test -- --spec button
 ```
 
-### Command line local testing in BrowserStack
+### BrowserStack local testing from the command line
 
 BrowserStack local testing can be enabled from the command line by adding `LOCAL_TESTING=true` to `test-browserstack` or `test-browserstack-german`:
 
