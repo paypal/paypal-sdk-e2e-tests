@@ -6,13 +6,6 @@ dotenv.config();
 export const config = {
     runner: "local",
     specs: ["tests/**/*.test.ts"],
-    capabilities: [
-        {
-            maxInstances: 1,
-            browserName: "chrome",
-            acceptInsecureCerts: true,
-        },
-    ],
     logLevel: "warn",
     coloredLogs: true,
     bail: 0,
@@ -40,21 +33,8 @@ export const config = {
     before: function (): void {
         browser.addCommand(
             "testUrl",
-            async function (defaultUrl: string): Promise<string> {
-                const testUrl = process.env.TEST_URL || defaultUrl;
-                const unsafeReferer = process.env.UNSAFE_REFERER;
-                const isChrome = this.capabilities.browserName === "Chrome";
-                if (unsafeReferer && isChrome) {
-                    await this.url(testUrl);
-                    await this.newWindow(unsafeReferer);
-                    const body = await $("body");
-                    const bodyExists = await body.isExisting();
-                    bodyExists
-                        ? await body.addValue("thisisunsafe")
-                        : console.error("The 'body' element doesn't exist.");
-                    await this.closeWindow();
-                }
-                return this.url(testUrl);
+            function (defaultUrl: string): Promise<string> {
+                return this.url(process.env.TEST_URL || defaultUrl);
             }
         );
 
