@@ -22,6 +22,14 @@ const overrides = {
                 },
             },
         },
+        {
+            "appium:language": "de",
+            "appium:locale": "de",
+        },
+        {
+            "appium:language": "de",
+            "appium:locale": "de",
+        },
     ],
 };
 
