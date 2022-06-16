@@ -4,9 +4,7 @@ import * as _ from "lodash";
 const overrides = {
     // paylater button is not eligible in Germany
     exclude: ["tests/**/*paylater*.test.ts"],
-    commonCapabilities: {
-        geoLocation: "DE",
-    },
+    commonCapabilities: {},
     capabilities: [
         {
             "goog:chromeOptions": {
@@ -21,6 +19,14 @@ const overrides = {
                     "intl.accept_languages": "de-DE",
                 },
             },
+        },
+        {
+            "appium:language": "de",
+            "appium:locale": "de",
+        },
+        {
+            "appium:language": "de",
+            "appium:locale": "de",
         },
     ],
 };
