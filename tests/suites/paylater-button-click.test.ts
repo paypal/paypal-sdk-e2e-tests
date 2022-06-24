@@ -6,6 +6,10 @@ import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("paylater button", () => {
     it("should open the popup when clicking on the paylater button", async () => {
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
+
         await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYLATER);

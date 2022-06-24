@@ -5,6 +5,10 @@ import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
 
 describe("card button", () => {
     it("should show the inline guest form when clicking on the card button", async () => {
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
+
         await browser.buttonsUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
