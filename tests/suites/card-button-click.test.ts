@@ -5,7 +5,7 @@ import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
 
 describe("card button", () => {
     it("should show the inline guest form when clicking on the card button", async () => {
-        await browser.testUrl(DEFAULT_URL);
+        await browser.buttonsUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
 

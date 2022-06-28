@@ -7,7 +7,7 @@ import { CookieBannerComponent } from "../components/cookie-banner-component";
 
 describe("paypal button", () => {
     it("should complete payment with the paypal button", async () => {
-        await browser.testUrl(DEFAULT_URL);
+        await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButton = new ButtonsComponent(FUNDING.PAYPAL);
 

@@ -6,7 +6,7 @@ import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("paypal button", () => {
     it("should open the popup when clicking on the paypal button", async () => {
-        await browser.testUrl(DEFAULT_URL);
+        await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYPAL);
         await paypalButtonComponent.click();

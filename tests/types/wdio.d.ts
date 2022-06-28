@@ -3,6 +3,6 @@ declare namespace WebdriverIO {
         waitAndClick: () => Promise<void>;
     }
     interface Browser {
-        testUrl: (defaultUrl: string) => Promise<string>;
+        buttonsUrl: (defaultUrl: string) => Promise<string>;
     }
 }

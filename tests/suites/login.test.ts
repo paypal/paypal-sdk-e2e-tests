@@ -6,7 +6,7 @@ import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("login", () => {
     it("should log in with an email and password", async () => {
-        await browser.testUrl(DEFAULT_URL);
+        await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButton = new ButtonsComponent(FUNDING.PAYPAL);
 

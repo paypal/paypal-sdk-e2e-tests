@@ -43,10 +43,10 @@ The tests run against the following default urls:
 -   buttons: https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html
 -   messages: https://paypal.github.io/paypal-sdk-e2e-tests/components/messages/messages.html
 
-These urls can be overriden using the `TEST_URL` and `MESSAGES_URL` environment variables to test the JS SDK on different websites. For example, the button tests can be run against the react-paypal-js storybook demo:
+These urls can be overriden using the `BUTTONS_URL` and `MESSAGES_URL` environment variables to test the JS SDK on different websites. For example, the button tests can be run against the react-paypal-js storybook demo:
 
 ```bash
-TEST_URL="https://paypal.github.io/react-paypal-js/iframe.html?id=example-paypalbuttons--default&args=&viewMode=story" npm test -- --spec button
+BUTTONS_URL="https://paypal.github.io/react-paypal-js/iframe.html?id=example-paypalbuttons--default&args=&viewMode=story" npm test -- --spec button
 ```
 
 ### BrowserStack local testing from the command line
@@ -60,5 +60,5 @@ LOCAL_TESTING=true npm run test-browserstack
 This is useful for running tests using `localhost` and/or a test page that uses a custom JS SDK test environment:
 
 ```bash
-TEST_URL="https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html?client-id=<client-id>&sdkBaseURL=<js-sdk-test-env-url>" LOCAL_TESTING=true npm run test-browserstack
+BUTTONS_URL="https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html?client-id=<client-id>&sdkBaseURL=<js-sdk-test-env-url>" LOCAL_TESTING=true npm run test-browserstack
 ```
