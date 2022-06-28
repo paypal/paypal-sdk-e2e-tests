@@ -21,6 +21,7 @@ describe("messages", () => {
             "Buy now, pay later",
             "Pay in 4 interest-free payments",
             "Pay over time with PayPal Credit",
+            "Pay with monthly installments",
         ];
 
         expect(possibleHeadings).to.include(h1Text);
