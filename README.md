@@ -18,15 +18,19 @@ There are two different ways to run the test suite:
 1. `npm test` - local runner that uses Chrome
 2. `npm run test-browserstack` - uses BrowserStack and requires a username and access key
 
-### BrowserStack Username and Access Key
+### Setting Up the `.env` File
 
-BrowserStack requires a username and access key to use to run tests. Find your credentials using [BrowserStack.com](https://www.browserstack.com/) and then run the following command:
+BrowserStack requires a username and access key to run tests. Find your credentials using [BrowserStack.com](https://www.browserstack.com/).
+
+In addition to BrowserStack credentials, you will need PayPal login credentials for the buttons tests to work in your script environment. For example, you will need `BUYER_EMAIL=<stage email>` and `BUYER_PASSWORD=<stage password>` for use with a stage script.
+
+When you have your credentials ready, run the following command:
 
 ```bash
 npm run save-credentials
 ```
 
-This will save your credentials to a local .env file which is ignored by git. This .env file gets loaded by the app and will use the credentials in it to connect to BrowserStack. This is designed for local development. CI tools like GitHub Actions should directly set the BROWSERSTACK_USERNAME and BROWSERSTACK_ACCESS_KEY environment variables.
+This will save your credentials to a local .env file, which is ignored by git. This .env file gets loaded by the app and will use the credentials in it to connect to BrowserStack. This is designed for local development. CI tools like GitHub Actions should directly set the BROWSERSTACK_USERNAME, BROWSERSTACK_ACCESS_KEY, BUYER_EMAIL, and BUYER_PASSWORD environment variables.
 
 ### Running a single test
 
