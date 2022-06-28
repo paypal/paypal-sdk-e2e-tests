@@ -39,6 +39,13 @@ export const config = {
         );
 
         browser.addCommand(
+            "messagesUrl",
+            function (defaultUrl: string): Promise<string> {
+                return this.url(process.env.MESSAGES_URL || defaultUrl);
+            }
+        );
+
+        browser.addCommand(
             "waitAndClick",
             async function (): Promise<void> {
                 await this.waitForDisplayed();

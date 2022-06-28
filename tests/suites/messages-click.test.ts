@@ -7,7 +7,7 @@ import {
 
 describe("messages", () => {
     it("should open the credit modal when clicking on the messages component", async () => {
-        await browser.testUrl(DEFAULT_URL);
+        await browser.messagesUrl(DEFAULT_URL);
 
         const paypalMessagesComponent = new MessagesComponent();
         await paypalMessagesComponent.click();
