@@ -4,8 +4,12 @@ name: BrowserStack Tests
 on:
     workflow_dispatch:
         inputs:
-            test_url:
-                description: Optional test url
+            buttons_url:
+                description: Optional buttons url
+                required: false
+                default: ""
+            messages_url:
+                description: Optional messages url
                 required: false
                 default: ""
     # run on push but only for the main branch
@@ -43,12 +47,12 @@ jobs:
             - name: ▶️ Run all tests
               id: test
               continue-on-error: true
-              run: BROWSERSTACK_BUILD_NAME="paypal-sdk-e2e-tests-$GITHUB_RUN_ID" BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.test_url }}" npm run test-browserstack
+              run: BROWSERSTACK_BUILD_NAME="paypal-sdk-e2e-tests-$GITHUB_RUN_ID" BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} BUTTONS_URL="${{ github.event.inputs.buttons_url }}" MESSAGES_URL="${{ github.event.inputs.messages_url }}" npm run test-browserstack
 
             - name: ▶️ Run IP Geolocation tests for Germany
               id: test_germany
               continue-on-error: true
-              run: BROWSERSTACK_BUILD_NAME="paypal-sdk-e2e-tests-germany-$GITHUB_RUN_ID" BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} TEST_URL="${{ github.event.inputs.test_url }}" npm run test-browserstack-german -- --spec card-button-text
+              run: BROWSERSTACK_BUILD_NAME="paypal-sdk-e2e-tests-germany-$GITHUB_RUN_ID" BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} BUTTONS_URL="${{ github.event.inputs.buttons_url }}" MESSAGES_URL="${{ github.event.inputs.messages_url }}" npm run test-browserstack-german -- --spec card-button-text
 
             - name: 🤞 Check if tests have passed
               if: steps.test.outcome == 'failure' || steps.test_germany.outcome == 'failure'

@@ -32,9 +32,16 @@ export const config = {
     },
     before: function (): void {
         browser.addCommand(
-            "testUrl",
+            "buttonsUrl",
             function (defaultUrl: string): Promise<string> {
-                return this.url(process.env.TEST_URL || defaultUrl);
+                return this.url(process.env.BUTTONS_URL || defaultUrl);
+            }
+        );
+
+        browser.addCommand(
+            "messagesUrl",
+            function (defaultUrl: string): Promise<string> {
+                return this.url(process.env.MESSAGES_URL || defaultUrl);
             }
         );
 
