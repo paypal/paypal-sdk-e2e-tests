@@ -4,5 +4,6 @@ declare namespace WebdriverIO {
     }
     interface Browser {
         buttonsUrl: (defaultUrl: string) => Promise<string>;
+        messagesUrl: (defaultUrl: string) => Promise<string>;
     }
 }
