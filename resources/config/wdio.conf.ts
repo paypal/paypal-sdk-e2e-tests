@@ -9,7 +9,7 @@ export const config = {
     logLevel: "warn",
     coloredLogs: true,
     bail: 0,
-    waitforTimeout: 30000,
+    waitforTimeout: 60000,
     connectionRetryTimeout: 120000,
     chromeOptions: {
         prefs: {
