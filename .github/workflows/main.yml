@@ -5,7 +5,7 @@ on:
     workflow_dispatch:
         inputs:
             buttons_url:
-                description: Optional test url
+                description: Optional buttons url
                 required: false
                 default: ""
             messages_url:
