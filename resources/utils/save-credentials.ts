@@ -12,21 +12,23 @@ function question(query: string) {
     });
 }
 
-async function promptForBrowserStackCredentials() {
+async function promptForCredentials() {
     try {
         const username = await question("enter your BrowserStack username: ");
         const accessKey = await question(
             "enter your BrowserStack access key: "
         );
+        const buyerEmail = await question("enter your buyer email: ");
+        const buyerPassword = await question("enter your buyer password: ");
 
         let content = `BROWSERSTACK_USERNAME=${username}\n`;
         content += `BROWSERSTACK_ACCESS_KEY=${accessKey}\n`;
+        content += `BUYER_EMAIL=${buyerEmail}\n`;
+        content += `BUYER_PASSWORD=${buyerPassword}\n`;
 
         try {
             writeFileSync("./.env", content);
-            console.log(
-                "successfully saved BrowserStack credentials for local usage"
-            );
+            console.log("successfully saved credentials for local usage");
         } catch (err) {
             console.error(err);
         }
@@ -37,4 +39,4 @@ async function promptForBrowserStackCredentials() {
     rl.close();
 }
 
-promptForBrowserStackCredentials();
+promptForCredentials();
