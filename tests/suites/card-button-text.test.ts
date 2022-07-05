@@ -22,13 +22,13 @@ async function getBrowserLanguage(): Promise<string> {
 
 describe("card button", () => {
     it(`should display the card button text based on the browser language`, async () => {
-        browser.execute(() => {
-            console.log("correlation id: ", window.paypal.getCorrelationID());
-        });
-
         await browser.buttonsUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
+
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
 
         const language = await getBrowserLanguage();
         const expectedButtonText = buttonTextByLanguage[language];

@@ -7,13 +7,12 @@ import {
 
 describe("messages", () => {
     it("should open the credit modal when clicking on the messages component", async () => {
-        browser.execute(() => {
-            console.log("correlation id: ", window.paypal.getCorrelationID());
-        });
-
         await browser.messagesUrl(DEFAULT_URL);
 
         const paypalMessagesComponent = new MessagesComponent();
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
         await paypalMessagesComponent.click();
 
         await paypalMessagesComponent.switchToModalFrame();

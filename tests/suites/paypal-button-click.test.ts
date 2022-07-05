@@ -6,13 +6,12 @@ import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("paypal button", () => {
     it("should open the popup when clicking on the paypal button", async () => {
-        browser.execute(() => {
-            console.log("correlation id: ", window.paypal.getCorrelationID());
-        });
-
         await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButtonComponent = new ButtonsComponent(FUNDING.PAYPAL);
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
         await paypalButtonComponent.click();
         await paypalButtonComponent.switchToPopupFrame();
 

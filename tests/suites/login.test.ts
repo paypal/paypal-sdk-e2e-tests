@@ -6,13 +6,13 @@ import { UnifiedLoginComponent } from "../components/unified-login-component";
 
 describe("login", () => {
     it("should log in with an email and password", async () => {
-        browser.execute(() => {
-            console.log("correlation id: ", window.paypal.getCorrelationID());
-        });
-
         await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButton = new ButtonsComponent(FUNDING.PAYPAL);
+
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
 
         await paypalButton.click();
         await paypalButton.switchToPopupFrame();

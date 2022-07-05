@@ -7,13 +7,13 @@ import { CookieBannerComponent } from "../components/cookie-banner-component";
 
 describe("paypal button", () => {
     it("should complete payment with the paypal button", async () => {
-        browser.execute(() => {
-            console.log("correlation id: ", window.paypal.getCorrelationID());
-        });
-
         await browser.buttonsUrl(DEFAULT_URL);
 
         const paypalButton = new ButtonsComponent(FUNDING.PAYPAL);
+
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
 
         await paypalButton.click();
         await paypalButton.switchToPopupFrame();

@@ -5,13 +5,13 @@ import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
 
 describe("card button", () => {
     it("should show the inline guest form when clicking on the card button", async () => {
-        browser.execute(() => {
-            console.log("correlation id: ", window.paypal.getCorrelationID());
-        });
-
         await browser.buttonsUrl(DEFAULT_URL);
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD);
+
+        browser.execute(() => {
+            console.log("correlation id: ", window.paypal.getCorrelationID());
+        });
 
         // wait for the button text to display to know when second render is complete
         await browser.waitUntil(async () => {
