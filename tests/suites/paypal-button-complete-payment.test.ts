@@ -38,7 +38,7 @@ describe("paypal button", () => {
         }
 
         await payNowButton.waitForDisplayed();
-
+        await payNowButton.scrollIntoView();
         await payNowButton.waitAndClick();
 
         // switch back to the parent window context
