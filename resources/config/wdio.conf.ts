@@ -5,7 +5,7 @@ dotenv.config();
 
 export const config = {
     runner: "local",
-    specs: ["tests/**/*.test.ts"],
+    specs: ["../../tests/**/*.test.ts"],
     logLevel: "warn",
     coloredLogs: true,
     bail: 0,

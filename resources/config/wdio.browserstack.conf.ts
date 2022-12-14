@@ -18,7 +18,7 @@ const overrides = {
             },
         ],
     ],
-    specs: ["tests/**/*.test.ts"],
+    specs: ["../../tests/**/*.test.ts"],
     host: "hub.browserstack.com",
     maxInstances: 15,
     baseUrl: "https://developer.paypal.com",
