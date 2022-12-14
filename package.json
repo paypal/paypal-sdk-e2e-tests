@@ -2,6 +2,10 @@
     "name": "paypal-sdk-e2e-tests",
     "version": "0.1.0",
     "description": "Automation tests for the PayPal JS SDK",
+    "engines": {
+        "node": ">=16",
+        "npm": ">=8"
+    },
     "scripts": {
         "build": "tsc -p .",
         "prepare": "husky install",
