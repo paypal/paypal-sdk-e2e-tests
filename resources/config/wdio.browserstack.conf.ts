@@ -12,7 +12,7 @@ const overrides = {
     key: process.env.BROWSERSTACK_ACCESS_KEY,
     services: [
         [
-            "@browserstack/wdio-browserstack-service",
+            "browserstack",
             {
                 browserstackLocal: localTesting,
             },
