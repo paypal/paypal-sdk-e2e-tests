@@ -14,16 +14,17 @@ describe("messages", () => {
 
         await paypalMessagesComponent.switchToModalFrame();
 
-        const h1 = await $("h1");
-        const h1Text = await h1.getText();
+        const h2 = await $("h2");
+        const h2Text = await h2.getText();
 
         const possibleHeadings = [
             "Buy now, pay later",
             "Pay in 4 interest-free payments",
             "Pay over time with PayPal Credit",
             "Pay with monthly installments",
+            "Pay Monthly",
         ];
 
-        expect(possibleHeadings).to.include(h1Text);
+        expect(possibleHeadings).to.include(h2Text);
     });
 });
