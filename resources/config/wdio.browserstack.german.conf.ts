@@ -3,7 +3,7 @@ import * as _ from "lodash";
 
 const overrides = {
     // paylater button is not eligible in Germany
-    exclude: ["tests/**/*paylater*.test.ts"],
+    exclude: ["../../tests/**/*paylater*.test.ts"],
     commonCapabilities: {},
     capabilities: [
         {
