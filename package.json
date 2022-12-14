@@ -2,6 +2,10 @@
     "name": "paypal-sdk-e2e-tests",
     "version": "0.1.0",
     "description": "Automation tests for the PayPal JS SDK",
+    "engines": {
+        "node": ">=16",
+        "npm": ">=8"
+    },
     "scripts": {
         "build": "tsc -p .",
         "prepare": "husky install",
@@ -15,17 +19,17 @@
     },
     "license": "Apache-2.0",
     "dependencies": {
-        "@browserstack/wdio-browserstack-service": "^1.0.4",
+        "@wdio/browserstack-service": "^8.0.11",
         "@paypal/sdk-constants": "^1.0.118",
-        "@wdio/cli": "^7.19.2",
-        "@wdio/local-runner": "^7.19.2",
-        "@wdio/mocha-framework": "^7.19.2",
-        "browserstack-local": "^1.4.9",
+        "@wdio/cli": "^8.0.13",
+        "@wdio/local-runner": "^8.0.13",
+        "@wdio/mocha-framework": "^8.0.13",
+        "browserstack-local": "^1.5.1",
         "chai": "^4.3.6",
         "dotenv": "^16.0.0",
         "minimist": "^1.2.6",
         "node-fetch": "^2.6.7",
-        "webdriverio": "^7.19.2"
+        "webdriverio": "^8.0.13"
     },
     "devDependencies": {
         "@types/chai": "^4.3.0",

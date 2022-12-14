@@ -12,13 +12,13 @@ const overrides = {
     key: process.env.BROWSERSTACK_ACCESS_KEY,
     services: [
         [
-            "@browserstack/wdio-browserstack-service",
+            "browserstack",
             {
                 browserstackLocal: localTesting,
             },
         ],
     ],
-    specs: ["tests/**/*.test.ts"],
+    specs: ["../../tests/**/*.test.ts"],
     host: "hub.browserstack.com",
     maxInstances: 15,
     baseUrl: "https://developer.paypal.com",
