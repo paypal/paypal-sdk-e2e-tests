@@ -14,8 +14,8 @@ describe("messages", () => {
 
         await paypalMessagesComponent.switchToModalFrame();
 
-        const h1 = await $("h1");
-        const h1Text = await h1.getText();
+        const h2 = await $("h2");
+        const h2Text = await h2.getText();
 
         const possibleHeadings = [
             "Buy now, pay later",
@@ -24,6 +24,6 @@ describe("messages", () => {
             "Pay with monthly installments",
         ];
 
-        expect(possibleHeadings).to.include(h1Text);
+        expect(possibleHeadings).to.include(h2Text);
     });
 });
