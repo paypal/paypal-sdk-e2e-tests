@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "Automation tests for the PayPal JS SDK",
     "engines": {
-        "node": ">=16",
+        "node": ">=14",
         "npm": ">=8"
     },
     "scripts": {
