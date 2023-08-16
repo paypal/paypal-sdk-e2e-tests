@@ -20,11 +20,15 @@ async function promptForCredentials() {
         );
         const buyerEmail = await question("enter your buyer email: ");
         const buyerPassword = await question("enter your buyer password: ");
+        const buyerCreditCard = await question(
+            "enter your buyer test credit card: "
+        );
 
         let content = `BROWSERSTACK_USERNAME=${username}\n`;
         content += `BROWSERSTACK_ACCESS_KEY=${accessKey}\n`;
         content += `BUYER_EMAIL=${buyerEmail}\n`;
         content += `BUYER_PASSWORD=${buyerPassword}\n`;
+        content += `BUYER_CC=${buyerCreditCard}\n`;
 
         try {
             writeFileSync("./.env", content);

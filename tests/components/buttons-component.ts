@@ -1,7 +1,7 @@
 import { FUNDING } from "@paypal/sdk-constants";
 
 export const DEFAULT_URL =
-    "https://paypal.github.io/paypal-sdk-e2e-tests/components/buttons/buttons.html";
+    "http://localhost:8081/docs/components/buttons/buttons.html";
 
 const SELECTORS = {
     BUTTON_IFRAME: "iframe[class='component-frame visible']",
@@ -27,7 +27,6 @@ export class ButtonsComponent {
 
         this.fundingSource = fundingSource;
     }
-
     async switchToFrame(frameSelector: string): Promise<void> {
         await browser.switchToParentFrame();
 
@@ -104,6 +103,22 @@ export class ButtonsComponent {
         );
 
         return buttonTextElement.getText();
+    }
+
+    async fillInCardDetails(): Promise<void> {
+        const { BUYER_CC: credit_card } = process.env;
+
+        const cardNumber = await browser.$("#credit-card-number");
+        await cardNumber.waitForDisplayed();
+        await cardNumber.setValue(credit_card);
+
+        const expiry = await browser.$("#expiry-date");
+        await expiry.waitForDisplayed();
+        await expiry.setValue("01/25");
+
+        const cvv = await browser.$('input[name="credit-card-security"]');
+        await cvv.waitForDisplayed();
+        await cvv.setValue("123");
     }
 
     async closePopup(): Promise<void> {
