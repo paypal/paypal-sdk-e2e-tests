@@ -19,8 +19,7 @@ describe("card button 3ds flow", () => {
         });
 
         await cardButtonComponent.click();
-        const cardFieldsFrameSelector =
-            "#card-fields - container iframe.zoid - visible";
+        const cardFieldsFrameSelector = "iframe[title='paypal_card_form']";
 
         // wait for the loading spinner to get replaced by the actual form
         // the height changes from 300px to over 700px after this change
