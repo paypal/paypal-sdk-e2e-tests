@@ -2,10 +2,9 @@ import * as dotenv from "dotenv";
 
 // load environment variables from .env file for local development
 dotenv.config();
-
 export const config = {
     runner: "local",
-    specs: ["../../tests/**/card-button-complete-payment.test.ts"],
+    specs: ["../../tests/**/*.test.ts"],
     logLevel: "warn",
     coloredLogs: true,
     bail: 0,
