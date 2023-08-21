@@ -1,14 +1,13 @@
 import { expect } from "chai";
 import { FUNDING } from "@paypal/sdk-constants";
 
-import { ButtonsComponent, DEFAULT_URL } from "../components/buttons-component";
-import { Key } from "webdriverio";
+import { ButtonsComponent } from "../components/buttons-component";
 
 describe("card button 3ds flow", () => {
     it("should show the inline guest form when clicking on the card button", async () => {
         // TODO: Remove this and add instructions in readme to sun the test locally
         await browser.buttonsUrl(
-            `https://paypal.github.io/paypal-sdk-e2e-tests/components/card-buttons/card-buttons.html?client-id=B_A-Ozg24p6ABR4eMS4hIgSHFw25ziFsVe4aKXJ74ZHVRwFI0jsYZzhZbH3PmmrQt1iIpq4yNATP22bgBM&currency=GBP`
+            `https://paypal.github.io/paypal-sdk-e2e-tests/components/card-buttons/card-buttons.html`
         );
 
         const cardButtonComponent = new ButtonsComponent(FUNDING.CARD); //card
@@ -34,7 +33,7 @@ describe("card button 3ds flow", () => {
 
         const cardFieldsComponent = await browser.$(cardFieldsFrameSelector);
 
-        await browser.switchToFrame(cardFieldsComponent); //verify
+        await browser.switchToFrame(cardFieldsComponent);
 
         // Fill in the credit card details
         await cardButtonComponent.fillInCardDetails();
