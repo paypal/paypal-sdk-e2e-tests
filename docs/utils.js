@@ -20,6 +20,7 @@ export function getOptionsFromQueryString() {
         "cdn-registry",
         "version",
         "data-popups-disabled",
+        "data-uid",
     ];
 
     const searchParams = new URLSearchParams(window.location.search);
