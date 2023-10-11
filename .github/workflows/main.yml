@@ -12,6 +12,11 @@ on:
                 description: Optional messages url
                 required: false
                 default: ""
+            buyer_credit_card:
+                description: Optional credit card
+                required: false
+                default: ""
+
     # run on push but only for the main branch
     push:
         branches: [main]
@@ -47,7 +52,7 @@ jobs:
             - name: ▶️ Run all tests
               id: test
               continue-on-error: true
-              run: BROWSERSTACK_BUILD_NAME="paypal-sdk-e2e-tests-$GITHUB_RUN_ID" BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} BUTTONS_URL="${{ github.event.inputs.buttons_url }}" MESSAGES_URL="${{ github.event.inputs.messages_url }}" npm run test-browserstack
+              run: BROWSERSTACK_BUILD_NAME="paypal-sdk-e2e-tests-$GITHUB_RUN_ID" BUYER_EMAIL=${{ secrets.BUYER_EMAIL }} BUYER_PASSWORD=${{ secrets.BUYER_PASSWORD }} BUYER_CC=${{ github.event.inputs.buyer_credit_card }} BUTTONS_URL="${{ github.event.inputs.buttons_url }}" MESSAGES_URL="${{ github.event.inputs.messages_url }}" npm run test-browserstack
 
             - name: ▶️ Run IP Geolocation tests for Germany
               id: test_germany
