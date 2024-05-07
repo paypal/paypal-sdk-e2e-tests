@@ -14,5 +14,6 @@
         "strictNullChecks": true,
         "skipLibCheck": true,
         "types": ["node", "mocha", "chai", "@wdio/globals/types"]
-    }
+    },
+    "ts-node": { "files": true }
 }
