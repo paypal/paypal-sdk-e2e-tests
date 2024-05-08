@@ -175,8 +175,10 @@ tmpConfig.capabilities.forEach(function ({
 }: {
     [x: string]: unknown;
 }) {
-    for (const i in tmpConfig.commonCapabilities)
+    for (const i in tmpConfig.commonCapabilities) {
+        // @ts-expect-error unknown
         caps[i] = caps[i] || tmpConfig.commonCapabilities[i];
+    }
 });
 
 export const config = tmpConfig;
