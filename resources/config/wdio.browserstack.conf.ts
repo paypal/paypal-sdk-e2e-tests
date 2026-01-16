@@ -14,6 +14,9 @@ const overrides = {
         [
             "browserstack",
             {
+                testReportingOptions: {
+                    projectName: "PayPal JS SDK V5 WebDriver.io E2E Tests",
+                },
                 browserstackLocal: localTesting,
             },
         ],
