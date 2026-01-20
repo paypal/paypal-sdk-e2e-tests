@@ -75,6 +75,24 @@ const overrides = {
             browserName: "Chrome",
             acceptInsecureCerts: true,
         },
+        {
+            os_version: "13.0",
+            device: "iPhone 11",
+            real_mobile: "true",
+            browserName: "iPhone",
+        },
+        {
+            os_version: "14.0",
+            device: "iPhone 12",
+            real_mobile: "true",
+            browserName: "iPhone",
+        },
+        {
+            os_version: "15.0",
+            device: "iPhone 13",
+            real_mobile: "true",
+            browserName: "iPhone",
+        },
     ],
     afterTest: async function (
         test: { title: string },
