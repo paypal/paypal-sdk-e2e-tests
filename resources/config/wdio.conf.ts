@@ -24,7 +24,7 @@ export const config = {
     afterTest: function (
         _test: Record<string, unknown>,
         _context: Record<string, unknown>,
-        { error }: Record<string, unknown>
+        { error }: Record<string, unknown>,
     ): void {
         if (error) {
             browser.takeScreenshot();
@@ -34,15 +34,17 @@ export const config = {
         browser.addCommand(
             "buttonsUrl",
             function (defaultUrl: string): Promise<string> {
+                console.log("mervin", process.env.BUTTONS_URL);
+                console.log("mervin", defaultUrl);
                 return this.url(process.env.BUTTONS_URL || defaultUrl);
-            }
+            },
         );
 
         browser.addCommand(
             "messagesUrl",
             function (defaultUrl: string): Promise<string> {
                 return this.url(process.env.MESSAGES_URL || defaultUrl);
-            }
+            },
         );
 
         browser.addCommand(
@@ -52,7 +54,7 @@ export const config = {
                 await browser.pause(3000);
                 await this.click();
             },
-            true
+            true,
         );
     },
 };
